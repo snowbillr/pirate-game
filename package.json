@@ -8,6 +8,8 @@
     "dev:build": "webpack --config ./webpack.config.js"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.1",
     "html-webpack-plugin": "^3.0.7",
     "raw-loader": "^0.5.1",
     "ts-loader": "3.x",

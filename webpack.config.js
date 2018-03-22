@@ -3,6 +3,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -43,7 +45,12 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
           name: 'vendor',
           filename: 'vendor.bundle.js'
-        })
+        }),
+        new CleanWebpackPlugin(['dist']),
+        new CopyWebpackPlugin([{
+          from: path.resolve(__dirname, 'assets', '**', '*'),
+          to: path.resolve(__dirname, 'dist'),
+        }]),
     ],
 
     devtool: 'inline-source-map',
