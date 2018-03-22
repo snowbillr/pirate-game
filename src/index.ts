@@ -4,8 +4,6 @@ class MyScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.sprite(200, 200, 'player');
-
     this.anims.create({
       key: 'player_walk',
       frames: [
@@ -15,6 +13,28 @@ class MyScene extends Phaser.Scene {
       frameRate: 5,
       repeat: -1,
     });
+
+    const player = this.add.sprite(200, 200, 'player', 'adventurer_stand.png');
+    this.physics.world.enable(player);
+
+    this.input.keyboard.createCursorKeys();
+    this.input.keyboard.on('keydown_RIGHT', () => {
+      player.flipX = false;
+      player.play('player_walk');
+    });
+    this.input.keyboard.on('keyup_RIGHT', () => {
+      player.anims.stop();
+      player.setTexture('player', 'adventurer_stand.png')
+    });
+
+    this.input.keyboard.on('keydown_LEFT', () => {
+      player.flipX = true;
+      player.play('player_walk');
+    });
+    this.input.keyboard.on('keyup_LEFT', () => {
+      player.anims.stop();
+      player.setTexture('player', 'adventurer_stand.png')
+    });
   }
 }
 
@@ -22,6 +42,10 @@ const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
+  physics: {
+    default: 'arcade',
+    arcade: {},
+  },
   scene: [MyScene]
 };
 
