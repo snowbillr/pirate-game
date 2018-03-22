@@ -5,6 +5,16 @@ class MyScene extends Phaser.Scene {
 
   create() {
     this.add.sprite(200, 200, 'player');
+
+    this.anims.create({
+      key: 'player_walk',
+      frames: [
+        { key: 'player', frame: 'adventurer_walk1.png' },
+        { key: 'player', frame: 'adventurer_walk2.png' },
+      ],
+      frameRate: 5,
+      repeat: -1,
+    });
   }
 }
 
