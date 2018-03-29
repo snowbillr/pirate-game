@@ -1,0 +1,26 @@
+{ "columns":8,
+ "image":"kenney-platformer-redux-ground.png",
+ "imageheight":2048,
+ "imagewidth":1024,
+ "margin":0,
+ "name":"test-tileset",
+ "spacing":0,
+ "tilecount":128,
+ "tileheight":128,
+ "tileproperties":
+    {
+     "8":
+        {
+         "collides":true
+        }
+    },
+ "tilepropertytypes":
+    {
+     "8":
+        {
+         "collides":"bool"
+        }
+    },
+ "tilewidth":128,
+ "type":"tileset"
+}

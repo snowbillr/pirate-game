@@ -1,6 +1,10 @@
 class MyScene extends Phaser.Scene {
   preload() {
     this.load.atlas('player', 'assets/sprite-atlases/player.png', 'assets/sprite-atlases/player.json');
+
+    // tilemap stuff
+    this.load.image('kenney-platformer-redux-ground', 'assets/tilesets/kenney-platformer-redux-ground.png');
+    this.load.tilemapTiledJSON('test-map', 'assets/maps/test-map.json');
   }
 
   create() {
@@ -13,6 +17,10 @@ class MyScene extends Phaser.Scene {
       frameRate: 5,
       repeat: -1,
     });
+
+    const tilemap = this.add.tilemap('test-map');
+    const tileset = tilemap.addTilesetImage('test-tileset', 'kenney-platformer-redux-ground')
+    tilemap.createStaticLayer('Tile Layer 1', tileset);
 
     const player = this.add.sprite(200, 200, 'player', 'adventurer_stand.png');
     this.physics.world.enable(player);
