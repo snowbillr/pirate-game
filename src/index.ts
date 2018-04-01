@@ -18,38 +18,42 @@ class MyScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    const tilemap = this.add.tilemap('test-map');
-    const tileset = tilemap.addTilesetImage('test-tileset', 'kenney-platformer-redux-ground')
-    tilemap.createStaticLayer('Tile Layer 1', tileset);
+    this.tilemap = this.add.tilemap('test-map');
+    const tileset = this.tilemap.addTilesetImage('test-tileset', 'kenney-platformer-redux-ground')
+    this.tilemap.createStaticLayer('Tile Layer 1', tileset);
 
-    const player = this.add.sprite(200, 200, 'player', 'adventurer_stand.png');
-    this.physics.world.enable(player);
+    this.player = this.add.sprite(200, 200, 'player', 'adventurer_stand.png');
+    this.physics.world.enable(this.player);
 
     this.input.keyboard.createCursorKeys();
     this.input.keyboard.on('keydown_RIGHT', () => {
-      player.flipX = false;
-      player.play('player_walk');
+      this.player.flipX = false;
+      this.player.play('player_walk');
     });
     this.input.keyboard.on('keyup_RIGHT', () => {
-      player.anims.stop();
-      player.setTexture('player', 'adventurer_stand.png')
+      this.player.anims.stop();
+      this.player.setFrame('adventurer_stand.png');
     });
 
     this.input.keyboard.on('keydown_LEFT', () => {
-      player.flipX = true;
-      player.play('player_walk');
+      this.player.flipX = true;
+      this.player.play('player_walk');
     });
     this.input.keyboard.on('keyup_LEFT', () => {
-      player.anims.stop();
-      player.setTexture('player', 'adventurer_stand.png')
+      this.player.anims.stop();
+      this.player.setTexture('player', 'adventurer_stand.png')
     });
+  }
+
+  update() {
+
   }
 }
 
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  width: 1024,
+  height: 768,
   physics: {
     default: 'arcade',
     arcade: {},
