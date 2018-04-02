@@ -1,4 +1,12 @@
+import { Player } from './player';
+
 class MyScene extends Phaser.Scene {
+  private player: Player;
+
+  init() {
+    this.player = new Player(this);
+  }
+
   preload() {
     this.load.atlas('player', 'assets/sprite-atlases/player.png', 'assets/sprite-atlases/player.json');
 
@@ -22,31 +30,12 @@ class MyScene extends Phaser.Scene {
     const tileset = this.tilemap.addTilesetImage('test-tileset', 'kenney-platformer-redux-ground')
     this.tilemap.createStaticLayer('Tile Layer 1', tileset);
 
-    this.player = this.add.sprite(200, 200, 'player', 'adventurer_stand.png');
-    this.physics.world.enable(this.player);
-
-    this.input.keyboard.createCursorKeys();
-    this.input.keyboard.on('keydown_RIGHT', () => {
-      this.player.flipX = false;
-      this.player.play('player_walk');
-    });
-    this.input.keyboard.on('keyup_RIGHT', () => {
-      this.player.anims.stop();
-      this.player.setFrame('adventurer_stand.png');
-    });
-
-    this.input.keyboard.on('keydown_LEFT', () => {
-      this.player.flipX = true;
-      this.player.play('player_walk');
-    });
-    this.input.keyboard.on('keyup_LEFT', () => {
-      this.player.anims.stop();
-      this.player.setTexture('player', 'adventurer_stand.png')
-    });
+    this.player.create();
+    this.add.existing(this.player.sprite);
   }
 
   update() {
-
+    this.player.update();
   }
 }
 

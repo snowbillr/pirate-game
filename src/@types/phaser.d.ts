@@ -1,1 +1,1 @@
-declare var Phaser: any;
+declare var Phaser:any;
