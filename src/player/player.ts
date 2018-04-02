@@ -16,7 +16,7 @@ export class Player {
   }
 
   create() {
-    this.sprite = new Phaser.GameObjects.Sprite(this.scene, 200, 200, 'player');
+    this.sprite = new Phaser.Physics.Arcade.Sprite(this.scene, 200, 200, 'player');
     this.controls = this.scene.input.keyboard.addKeys({
       'left': Phaser.Input.Keyboard.KeyCodes.LEFT,
       'right': Phaser.Input.Keyboard.KeyCodes.RIGHT,

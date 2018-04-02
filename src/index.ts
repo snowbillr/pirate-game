@@ -26,12 +26,13 @@ class MyScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.tilemap = this.add.tilemap('test-map');
+    this.tilemap = this.add.tilemap('test-map', 128, 128);
     const tileset = this.tilemap.addTilesetImage('test-tileset', 'kenney-platformer-redux-ground')
-    this.tilemap.createStaticLayer('Tile Layer 1', tileset);
+    this.tilemap.createStaticLayer('Tile Layer 1', tileset, 0, 0);
 
     this.player.create();
     this.add.existing(this.player.sprite);
+    this.physics.add.existing(this.player.sprite);
   }
 
   update() {
@@ -45,7 +46,11 @@ const config = {
   height: 768,
   physics: {
     default: 'arcade',
-    arcade: {},
+    arcade: {
+      gravity: {
+        // y: 800,
+      }
+    },
   },
   scene: [MyScene]
 };

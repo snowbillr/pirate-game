@@ -10,11 +10,13 @@ export class MovementStateMachine {
   constructor(player, initialStateKey) {
     this.player = player;
     this.direction = null;
+
     this.states = {
       idle: {
         key: 'idle',
         onEnter: () => {
           this.player.sprite.setFrame('adventurer_stand.png');
+          this.player.sprite.setVelocityX(0);
         },
         onUpdate: () => {
           if (this.player.controls.left.isDown || this.player.controls.right.isDown) {
@@ -33,9 +35,11 @@ export class MovementStateMachine {
           if (this.player.controls.left.isDown) {
             this.player.sprite.flipX = true;
             this.direction = Phaser.LEFT;
+            this.player.sprite.setVelocityX(-50);
           } else if (this.player.controls.right.isDown) {
-          this.player.sprite.flipX = false;
-          this.direction = Phaser.RIGHT;
+            this.player.sprite.flipX = false;
+            this.direction = Phaser.RIGHT;
+            this.player.sprite.setVelocityX(50);
           }
         },
         onUpdate: () => {
