@@ -1,37 +1,29 @@
-import { IState } from "./i-state";
 import { PlayerStateMachine } from "../player-state-machine";
 import { Player } from "../player";
 import { HorizontalMovement } from "./components/horizontal-movement";
+import { PlayerState } from "./player-state";
 
-export class JumpingState implements IState {
-  key: string;
-  psm: PlayerStateMachine;
-
-  private horizontalMovementComponent: HorizontalMovement;
-
+export class JumpingState extends PlayerState {
   constructor(psm: PlayerStateMachine) {
-    this.key = 'jumping';
-    this.psm = psm;
-
-    this.horizontalMovementComponent = new HorizontalMovement();
+    super('jumping', psm, { horizontalMovement: HorizontalMovement })
   }
 
   onEnter(player: Player) {
-    this.horizontalMovementComponent.onEnter(player);
+    super.onEnter(player);
 
     player.sprite.setFrame('adventurer_jump.png');
     player.sprite.body.velocity.y = -600;
   }
 
   onUpdate(player: Player) {
-   this.horizontalMovementComponent.onUpdate(player);
+   super.onUpdate(player);
 
     if (player.sprite.body.velocity.y >= 0) {
       this.psm.transition(this.psm.states.falling);
     }
   }
 
-  onLeave() {
-    this.horizontalMovementComponent.onLeave();
+  onLeave(player: Player) {
+    super.onLeave(player);
   }
 }

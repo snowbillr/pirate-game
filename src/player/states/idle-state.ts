@@ -1,14 +1,10 @@
 import { Player } from '../player';
-import { IState} from './i-state';
 import { PlayerStateMachine } from '../player-state-machine';
+import { PlayerState } from './player-state';
 
-export class IdleState implements IState{
-  key: string;
-  psm: PlayerStateMachine;
-
+export class IdleState extends PlayerState {
   constructor(psm: PlayerStateMachine) {
-    this.key = 'idle';
-    this.psm = psm;
+    super('idle', psm)
   }
 
   onEnter(player: Player) {

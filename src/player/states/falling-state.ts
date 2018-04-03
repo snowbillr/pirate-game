@@ -1,32 +1,24 @@
-import { IState } from './i-state';
 import { PlayerStateMachine } from '../player-state-machine';
 import { Player } from '../player';
 import { HorizontalMovement } from './components/horizontal-movement';
+import { PlayerState } from './player-state';
 
-export class FallingState implements IState {
-  key: string;
-  psm: PlayerStateMachine;
-
-  private horizontalMovementComponent: HorizontalMovement;
-
+export class FallingState extends PlayerState {
   constructor(psm: PlayerStateMachine) {
-    this.key = 'falling';
-    this.psm = psm;
-
-    this.horizontalMovementComponent = new HorizontalMovement();
+    super('falling', psm, { horizontalMovement: HorizontalMovement });
   }
 
   onEnter(player: Player) {
-    this.horizontalMovementComponent.onEnter(player);
+    super.onEnter(player);
 
     player.sprite.setFrame('adventurer_fall.png');
   }
 
   onUpdate(player: Player) {
-   this.horizontalMovementComponent.onUpdate(player);
+   super.onUpdate(player);
 
     if (player.sprite.body.blocked.down) {
-      if (this.horizontalMovementComponent.direction === Phaser.LEFT || this.horizontalMovementComponent.direction === Phaser.RIGHT) {
+      if (this.components.horizontalMovement.direction === Phaser.LEFT || this.components.horizontalMovement.direction === Phaser.RIGHT) {
         this.psm.transition(this.psm.states.walking);
       } else {
         this.psm.transition(this.psm.states.idle);
@@ -34,7 +26,7 @@ export class FallingState implements IState {
     }
   }
 
-  onLeave() {
-    this.horizontalMovementComponent.onLeave();
+  onLeave(player: Player) {
+    super.onLeave(player);
   }
 }

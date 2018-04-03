@@ -1,29 +1,22 @@
 import { Player } from '../player';
-import { IState} from './i-state';
 import { PlayerStateMachine } from '../player-state-machine';
 import { HorizontalMovement } from './components/horizontal-movement';
+import { PlayerState } from './player-state';
 
-export class WalkingState implements IState{
-  key: string;
-  psm: PlayerStateMachine;
-
-  private horizontalMovementComponent: HorizontalMovement;
+export class WalkingState extends PlayerState {
 
   constructor(psm: PlayerStateMachine) {
-    this.key = 'walking';
-    this.psm = psm;
-
-    this.horizontalMovementComponent = new HorizontalMovement();
+    super('walking', psm, { horizontalMovement: HorizontalMovement })
   }
 
   onEnter(player: Player) {
-    player.sprite.play('player_walk');
+    super.onEnter(player);
 
-   this.horizontalMovementComponent.onEnter(player);
+    player.sprite.play('player_walk');
   }
 
   onUpdate(player: Player) {
-    this.horizontalMovementComponent.onUpdate(player);
+    super.onUpdate(player);
 
     if (player.controls.jump.isDown) {
       return this.psm.transition(this.psm.states.jumping);
@@ -33,14 +26,14 @@ export class WalkingState implements IState{
       return this.psm.transition(this.psm.states.falling);
     }
 
-    if (this.horizontalMovementComponent.direction === Phaser.NONE) {
+    if (this.components.horizontalMovement.direction === Phaser.NONE) {
       return this.psm.transition(this.psm.states.idle);
     }
   }
 
   onLeave(player: Player) {
-    player.sprite.anims.stop();
+    super.onLeave(player);
 
-    this.horizontalMovementComponent.onLeave();
+    player.sprite.anims.stop();
   }
 }

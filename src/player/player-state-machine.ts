@@ -2,14 +2,14 @@ import { Player } from './player';
 import { WalkingState } from './states/walking-state';
 import { IdleState } from './states/idle-state';
 
-import { IState} from './states/i-state';
 import { FallingState } from './states/falling-state';
 import { JumpingState } from './states/jumping-state';
+import { PlayerState } from './states/player-state';
 
 export class PlayerStateMachine {
   private player: Player;
   public states;
-  private currentState: IState;
+  private currentState: PlayerState;
 
   constructor(player, initialStateKey) {
     this.player = player;
