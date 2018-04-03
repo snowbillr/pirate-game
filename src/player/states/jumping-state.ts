@@ -1,37 +1,30 @@
 import { IState } from "./i-state";
 import { PlayerStateMachine } from "../player-state-machine";
 import { Player } from "../player";
+import { HorizontalMovement } from "./components/horizontal-movement";
 
 export class JumpingState implements IState {
   key: string;
   psm: PlayerStateMachine;
-  direction: number;
+
+  private horizontalMovementComponent: HorizontalMovement;
 
   constructor(psm: PlayerStateMachine) {
     this.key = 'jumping';
     this.psm = psm;
-    this.direction = null;
+
+    this.horizontalMovementComponent = new HorizontalMovement();
   }
 
   onEnter(player: Player) {
     player.sprite.setFrame('adventurer_jump.png');
     player.sprite.body.velocity.y = -600;
+
+    this.horizontalMovementComponent.onEnter(player);
   }
 
   onUpdate(player: Player) {
-    if (player.controls.left.isDown) {
-      player.sprite.flipX = true;
-      this.direction = Phaser.LEFT;
-      player.sprite.body.velocity.x = -300;
-    } else if (player.controls.right.isDown) {
-      player.sprite.flipX = false;
-      this.direction = Phaser.RIGHT;
-      player.sprite.body.velocity.x = 300;
-    } else if (this.direction === Phaser.LEFT && !player.controls.left.isDown ||
-        this.direction === Phaser.RIGHT && !player.controls.right.isDown) {
-      this.direction = null;
-      player.sprite.body.velocity.x = 0;
-    }
+   this.horizontalMovementComponent.onUpdate(player);
 
     if (player.sprite.body.velocity.y >= 0) {
       this.psm.transition(this.psm.states.falling);
@@ -39,6 +32,6 @@ export class JumpingState implements IState {
   }
 
   onLeave() {
-    this.direction = null;
+    this.horizontalMovementComponent.onLeave();
   }
 }
