@@ -28,6 +28,10 @@ export class WalkingState implements IState{
   }
 
   onUpdate(player: Player) {
+    if (player.controls.jump.isDown) {
+      this.fsm.transition(this.fsm.states.jumping);
+    }
+
     if (this.direction === Phaser.LEFT && !player.controls.left.isDown) {
       this.fsm.transition(this.fsm.states.idle);
     }
@@ -38,7 +42,6 @@ export class WalkingState implements IState{
 
   onLeave(player: Player) {
     this.direction = null;
-    player.sprite.body.velocity.x = 0;
     player.sprite.anims.stop();
   }
 }
