@@ -1,6 +1,6 @@
-import { Player } from '../player';
-import { IState} from './i-state';
-import { StateMachine } from './state-machine';
+import { Player } from '../../player';
+import { IState} from '../i-state';
+import { StateMachine } from '../state-machine';
 
 export class WalkingState implements IState{
   key: string;

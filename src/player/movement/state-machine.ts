@@ -1,10 +1,10 @@
 import { Player } from '../player';
-import { WalkingState } from './walking-state';
-import { IdleState } from './idle-state';
+import { WalkingState } from './states/walking-state';
+import { IdleState } from './states/idle-state';
 
 import { IState} from './i-state';
-import { FallingState } from './falling-state';
-import { JumpingState } from './jumping-state';
+import { FallingState } from './states/falling-state';
+import { JumpingState } from './states/jumping-state';
 
 export class StateMachine {
   private player: Player;
