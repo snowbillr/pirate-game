@@ -17,10 +17,10 @@ export class JumpingState implements IState {
   }
 
   onEnter(player: Player) {
+    this.horizontalMovementComponent.onEnter(player);
+
     player.sprite.setFrame('adventurer_jump.png');
     player.sprite.body.velocity.y = -600;
-
-    this.horizontalMovementComponent.onEnter(player);
   }
 
   onUpdate(player: Player) {

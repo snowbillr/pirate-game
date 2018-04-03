@@ -23,22 +23,19 @@ export class WalkingState implements IState{
   }
 
   onUpdate(player: Player) {
+    this.horizontalMovementComponent.onUpdate(player);
+
     if (player.controls.jump.isDown) {
       return this.psm.transition(this.psm.states.jumping);
     }
 
-    if (player.sprite.body.velocity.y > 0) {
+    if (!player.sprite.body.blocked.down) {
       return this.psm.transition(this.psm.states.falling);
     }
 
-    if (this.horizontalMovementComponent.direction === Phaser.LEFT && !player.controls.left.isDown) {
+    if (this.horizontalMovementComponent.direction === Phaser.NONE) {
       return this.psm.transition(this.psm.states.idle);
     }
-    if (this.horizontalMovementComponent.direction === Phaser.RIGHT && !player.controls.right.isDown) {
-      return this.psm.transition(this.psm.states.idle);
-    }
-
-    this.horizontalMovementComponent.onUpdate(player);
   }
 
   onLeave(player: Player) {

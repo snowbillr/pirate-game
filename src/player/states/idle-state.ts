@@ -25,7 +25,7 @@ export class IdleState implements IState{
       this.psm.transition(this.psm.states.jumping);
     }
 
-    if (player.sprite.body.velocity.y > 0) {
+    if (!player.sprite.body.blocked.down) {
       this.psm.transition(this.psm.states.falling);
     }
   }

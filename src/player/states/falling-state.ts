@@ -17,9 +17,9 @@ export class FallingState implements IState {
   }
 
   onEnter(player: Player) {
-    player.sprite.setFrame('adventurer_fall.png');
-
     this.horizontalMovementComponent.onEnter(player);
+
+    player.sprite.setFrame('adventurer_fall.png');
   }
 
   onUpdate(player: Player) {
