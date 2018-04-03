@@ -19,11 +19,11 @@ export class WalkingState implements IState{
     if (player.controls.left.isDown) {
       player.sprite.flipX = true;
       this.direction = Phaser.LEFT;
-      player.sprite.setVelocityX(-100);
+      player.sprite.body.velocity.x = -200;
     } else if (player.controls.right.isDown) {
       player.sprite.flipX = false;
       this.direction = Phaser.RIGHT;
-      player.sprite.setVelocityX(100);
+      player.sprite.body.velocity.x = 200;
     }
   }
 
@@ -38,6 +38,7 @@ export class WalkingState implements IState{
 
   onLeave(player: Player) {
     this.direction = null;
+    player.sprite.body.velocity.x = 0;
     player.sprite.anims.stop();
   }
 }

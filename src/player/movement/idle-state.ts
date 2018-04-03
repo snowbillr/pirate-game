@@ -13,7 +13,6 @@ export class IdleState implements IState{
 
   onEnter(player: Player) {
     player.sprite.setFrame('adventurer_stand.png');
-    player.sprite.setVelocityX(0);
   }
 
   onUpdate(player: Player) {
@@ -21,4 +20,6 @@ export class IdleState implements IState{
       this.fsm.transition(this.fsm.states.walking);
     }
   }
+
+  onLeave() {}
 }
