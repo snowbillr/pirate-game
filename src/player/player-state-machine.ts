@@ -23,7 +23,7 @@ export class PlayerStateMachine {
   }
 
   update() {
-    this.callLifecycleMethod('onUpdate');
+    this.currentState.onUpdate(this.player);
   }
 
   transition(to) {
@@ -31,12 +31,8 @@ export class PlayerStateMachine {
       return;
     }
 
-    this.callLifecycleMethod('onLeave');
+    this.currentState.onLeave(this.player);
     this.currentState = to;
-    this.callLifecycleMethod('onEnter');
-  }
-
-  private callLifecycleMethod(methodName) {
-    this.currentState[methodName] && this.currentState[methodName](this.player);
+    this.currentState.onEnter(this.player);
   }
 }
