@@ -2,29 +2,38 @@ import { PlayerStateMachine } from "../player-state-machine";
 import { Player } from "../player";
 
 export abstract class PlayerState {
-  protected components: any = {};
+  public key: string;
 
-  constructor(public key: string, protected psm: PlayerStateMachine, componentMap = {}) {
-    Object.keys(componentMap).forEach(componentKey => {
+  protected components: any = {};
+  private componentKeys: string[];
+
+  protected psm: PlayerStateMachine;
+
+  constructor(key: string, psm: PlayerStateMachine, componentMap = {}) {
+    this.key = key;
+    this.psm = psm;
+
+    this.componentKeys = Object.keys(componentMap);
+    this.componentKeys.forEach(componentKey => {
       this.components[componentKey] = new componentMap[componentKey]();
-    })
+    });
   }
 
   onEnter(player: Player) {
-    Object.keys(this.components).forEach(componentKey => {
-      this.components[componentKey].onEnter(player);
-    });
+    this.callComponentLifecycle('onEnter', player);
   }
 
   onUpdate(player: Player) {
-    Object.keys(this.components).forEach(componentKey => {
-      this.components[componentKey].onUpdate(player);
-    });
+    this.callComponentLifecycle('onUpdate', player);
   }
 
   onLeave(player: Player) {
-    Object.keys(this.components).forEach(componentKey => {
-      this.components[componentKey].onLeave(player);
-    });
+    this.callComponentLifecycle('onLeave', player);
+  }
+
+  private callComponentLifecycle(lifecycle, player) {
+    for (let i = 0; i < this.componentKeys.length; i++) {
+      this.components[this.componentKeys[i]][lifecycle](player);
+    }
   }
 }

@@ -2,6 +2,7 @@ import { PlayerStateMachine } from "../player-state-machine";
 import { Player } from "../player";
 import { HorizontalMovement } from "./components/horizontal-movement";
 import { PlayerState } from "./player-state";
+import { PlayerAttributes } from "../player-attributes";
 
 export class JumpingState extends PlayerState {
   constructor(psm: PlayerStateMachine) {
@@ -12,7 +13,7 @@ export class JumpingState extends PlayerState {
     super.onEnter(player);
 
     player.sprite.setFrame('adventurer_jump.png');
-    player.sprite.body.velocity.y = -600;
+    player.sprite.body.velocity.y = -PlayerAttributes.jumpVelocity;
   }
 
   onUpdate(player: Player) {

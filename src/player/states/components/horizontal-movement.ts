@@ -1,4 +1,5 @@
 import { Player } from "../../player";
+import { PlayerAttributes } from "../../player-attributes";
 
 export class HorizontalMovement {
   public direction: number = Phaser.NONE;
@@ -8,12 +9,12 @@ export class HorizontalMovement {
       this.direction = Phaser.LEFT;
 
       player.sprite.flipX = true;
-      player.sprite.body.velocity.x = -300;
+      player.sprite.body.velocity.x = -PlayerAttributes.horizontalMovementVelocity;
     } else if (player.controls.right.isDown) {
       this.direction = Phaser.RIGHT;
 
       player.sprite.flipX = false;
-      player.sprite.body.velocity.x = 300;
+      player.sprite.body.velocity.x = PlayerAttributes.horizontalMovementVelocity;
     }
   }
 
@@ -22,12 +23,12 @@ export class HorizontalMovement {
       this.direction = Phaser.LEFT;
 
       player.sprite.flipX = true;
-      player.sprite.body.velocity.x = -300;
+      player.sprite.body.velocity.x = -PlayerAttributes.horizontalMovementVelocity;
     } else if (player.controls.right.isDown) {
       this.direction = Phaser.RIGHT;
 
       player.sprite.flipX = false;
-      player.sprite.body.velocity.x = 300;
+      player.sprite.body.velocity.x = PlayerAttributes.horizontalMovementVelocity;
     }
 
     if (this.direction === Phaser.LEFT && !player.controls.left.isDown ||

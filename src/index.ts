@@ -22,7 +22,7 @@ class MyScene extends Phaser.Scene {
         { key: 'player', frame: 'adventurer_walk1.png' },
         { key: 'player', frame: 'adventurer_walk2.png' },
       ],
-      frameRate: 5,
+      frameRate: 6,
       repeat: -1,
     });
 
