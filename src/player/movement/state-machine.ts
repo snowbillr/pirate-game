@@ -2,10 +2,9 @@ import { Player } from '../player';
 import { WalkingState } from './walking-state';
 import { IdleState } from './idle-state';
 
-import { IStateMachine } from './i-state-machine';
 import { IStateDefinition } from './i-state-definition';
 
-export class StateMachine implements IStateMachine {
+export class StateMachine {
   private player: Player;
   public states;
   private currentState: IStateDefinition;
@@ -20,7 +19,7 @@ export class StateMachine implements IStateMachine {
   }
 
   update() {
-    this.currentState.onUpdate(this.player);
+    this.callLifecycleMethod('onUpdate');
   }
 
   transition(to) {
@@ -28,8 +27,12 @@ export class StateMachine implements IStateMachine {
       return;
     }
 
-    this.currentState.onLeave(this.player);
+    this.callLifecycleMethod('onLeave');
     this.currentState = to;
-    this.currentState.onEnter(this.player);
+    this.callLifecycleMethod('onEnter');
+  }
+
+  private callLifecycleMethod(methodName) {
+    this.currentState[methodName] && this.currentState[methodName](this.player);
   }
 }

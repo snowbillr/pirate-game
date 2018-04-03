@@ -1,14 +1,14 @@
 import { Player } from '../player';
 import { IStateDefinition } from './i-state-definition';
-import { IStateMachine } from './i-state-machine';
+import { StateMachine } from './state-machine';
 
 export class WalkingState implements IStateDefinition {
   key: string;
-  fsm: IStateMachine;
+  fsm: StateMachine;
 
   direction: number;
 
-  constructor(fsm: IStateMachine) {
+  constructor(fsm: StateMachine) {
     this.key = 'walking';
     this.fsm = fsm;
   }

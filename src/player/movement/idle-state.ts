@@ -1,12 +1,12 @@
 import { Player } from '../player';
 import { IStateDefinition } from './i-state-definition';
-import { IStateMachine } from './i-state-machine';
+import { StateMachine } from './state-machine';
 
 export class IdleState implements IStateDefinition {
   key: string;
-  fsm: IStateMachine;
+  fsm: StateMachine;
 
-  constructor(fsm: IStateMachine) {
+  constructor(fsm: StateMachine) {
     this.key = 'idle';
     this.fsm = fsm;
   }
@@ -20,9 +20,5 @@ export class IdleState implements IStateDefinition {
     if (player.controls.left.isDown || player.controls.right.isDown) {
       this.fsm.transition(this.fsm.states.walking);
     }
-  }
-
-  onLeave() {
-
   }
 }
