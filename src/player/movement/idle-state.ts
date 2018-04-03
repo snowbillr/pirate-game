@@ -19,6 +19,10 @@ export class IdleState implements IState{
     if (player.controls.left.isDown || player.controls.right.isDown) {
       this.fsm.transition(this.fsm.states.walking);
     }
+
+    if (player.sprite.body.velocity.y > 0) {
+      this.fsm.transition(this.fsm.states.falling);
+    }
   }
 
   onLeave() {}

@@ -30,7 +30,7 @@ class MyScene extends Phaser.Scene {
     const tileset = this.tilemap.addTilesetImage('test-tileset', 'kenney-platformer-redux-ground')
     this.layer = this.tilemap.createStaticLayer('Tile Layer 1', tileset, 0, 0);
 
-    this.tilemap.setCollisionByProperty({ collides: true }, true, true, this.layer)
+    this.layer.setCollisionByProperty({ collides: true }, true)
 
     this.player.create();
     this.add.existing(this.player.sprite);
