@@ -1,11 +1,11 @@
-import { StateMachine } from "./movement/state-machine";
+import { PlayerStateMachine } from "./player-state-machine";
 
 export class Player {
   private scene; //: Phaser.Scene;
   public sprite; //: Phaser.GameObjects.Sprite;
   public controls; //: { [string]: Phaser.Input.Keyboard.Key }
 
-  private state: StateMachine;
+  private state: PlayerStateMachine;
 
   constructor(scene) {
     this.scene = scene;
@@ -19,7 +19,7 @@ export class Player {
       right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
       jump: Phaser.Input.Keyboard.KeyCodes.UP,
     });
-    this.state = new StateMachine(this, 'idle');
+    this.state = new PlayerStateMachine(this, 'idle');
   }
 
   update() {

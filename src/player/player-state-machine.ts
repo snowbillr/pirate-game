@@ -1,12 +1,12 @@
-import { Player } from '../player';
+import { Player } from './player';
 import { WalkingState } from './states/walking-state';
 import { IdleState } from './states/idle-state';
 
-import { IState} from './i-state';
+import { IState} from './states/i-state';
 import { FallingState } from './states/falling-state';
 import { JumpingState } from './states/jumping-state';
 
-export class StateMachine {
+export class PlayerStateMachine {
   private player: Player;
   public states;
   private currentState: IState;

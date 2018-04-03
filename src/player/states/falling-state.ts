@@ -1,21 +1,20 @@
-import { IState } from "../i-state";
-import { StateMachine } from "../state-machine";
-import { Player } from "../../player";
+import { IState } from './i-state';
+import { PlayerStateMachine } from '../player-state-machine';
+import { Player } from '../player';
 
-export class JumpingState implements IState {
+export class FallingState implements IState {
   key: string;
-  fsm: StateMachine;
-  direction: number;
+  psm: PlayerStateMachine;
+  private direction: number;
 
-  constructor(fsm: StateMachine) {
-    this.key = 'jumping';
-    this.fsm = fsm;
+  constructor(psm: PlayerStateMachine) {
+    this.key = 'falling';
+    this.psm = psm;
     this.direction = null;
   }
 
   onEnter(player: Player) {
-    player.sprite.setFrame('adventurer_jump.png');
-    player.sprite.body.velocity.y = -600;
+    player.sprite.setFrame('adventurer_fall.png');
   }
 
   onUpdate(player: Player) {
@@ -33,8 +32,12 @@ export class JumpingState implements IState {
       player.sprite.body.velocity.x = 0;
     }
 
-    if (player.sprite.body.velocity.y >= 0) {
-      this.fsm.transition(this.fsm.states.falling);
+    if (player.sprite.body.blocked.down) {
+      if (this.direction === Phaser.LEFT || this.direction === Phaser.RIGHT) {
+        this.psm.transition(this.psm.states.walking);
+      } else {
+        this.psm.transition(this.psm.states.idle);
+      }
     }
   }
 

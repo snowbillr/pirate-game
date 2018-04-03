@@ -1,14 +1,14 @@
-import { Player } from '../../player';
-import { IState} from '../i-state';
-import { StateMachine } from '../state-machine';
+import { Player } from '../player';
+import { IState} from './i-state';
+import { PlayerStateMachine } from '../player-state-machine';
 
 export class IdleState implements IState{
   key: string;
-  fsm: StateMachine;
+  psm: PlayerStateMachine;
 
-  constructor(fsm: StateMachine) {
+  constructor(psm: PlayerStateMachine) {
     this.key = 'idle';
-    this.fsm = fsm;
+    this.psm = psm;
   }
 
   onEnter(player: Player) {
@@ -18,15 +18,15 @@ export class IdleState implements IState{
 
   onUpdate(player: Player) {
     if (player.controls.left.isDown || player.controls.right.isDown) {
-      this.fsm.transition(this.fsm.states.walking);
+      this.psm.transition(this.psm.states.walking);
     }
 
     if (player.controls.jump.isDown) {
-      this.fsm.transition(this.fsm.states.jumping);
+      this.psm.transition(this.psm.states.jumping);
     }
 
     if (player.sprite.body.velocity.y > 0) {
-      this.fsm.transition(this.fsm.states.falling);
+      this.psm.transition(this.psm.states.falling);
     }
   }
 
