@@ -1,11 +1,11 @@
-import { MovementStateMachine } from "./movementStateMachine";
+import { StateMachine } from "./movement/state-machine";
 
 export class Player {
   private scene; //: Phaser.Scene;
   public sprite; //: Phaser.GameObjects.Sprite;
   public controls; //: { [string]: Phaser.Input.Keyboard.Key }
 
-  private movementStateMachine: MovementStateMachine;
+  private movementStateMachine: StateMachine;
 
   constructor(scene) {
     this.scene = scene;
@@ -21,7 +21,7 @@ export class Player {
       'left': Phaser.Input.Keyboard.KeyCodes.LEFT,
       'right': Phaser.Input.Keyboard.KeyCodes.RIGHT,
     });
-    this.movementStateMachine = new MovementStateMachine(this, 'idle');
+    this.movementStateMachine = new StateMachine(this, 'idle');
   }
 
   update() {

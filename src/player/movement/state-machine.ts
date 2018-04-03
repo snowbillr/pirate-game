@@ -1,16 +1,22 @@
-import { Player } from './player';
+import { Player } from '../player';
+import { WalkingState } from './walking-state';
+import { IdleState } from './idle-state';
 
-export class MovementStateMachine {
+import { IStateMachine } from './i-state-machine';
+import { IStateDefinition } from './i-state-definition';
+
+export class StateMachine implements IStateMachine {
   private player: Player;
-  private states;
-  private currentState;
-
-  private direction;
+  public states;
+  private currentState: IStateDefinition;
 
   constructor(player, initialStateKey) {
     this.player = player;
-    this.direction = null;
-
+    this.states = {
+      idle: new IdleState(this),
+      walking: new WalkingState(this),
+    }
+    /*
     this.states = {
       idle: {
         key: 'idle',
@@ -56,11 +62,12 @@ export class MovementStateMachine {
         }
       },
     }
+    */
     this.currentState = this.states[initialStateKey];
   }
 
   update() {
-    this.currentState.onUpdate();
+    this.currentState.onUpdate(this.player);
   }
 
   transition(to) {
@@ -68,8 +75,8 @@ export class MovementStateMachine {
       return;
     }
 
-    this.currentState.onLeave();
+    this.currentState.onLeave(this.player);
     this.currentState = to;
-    this.currentState.onEnter();
+    this.currentState.onEnter(this.player);
   }
 }
