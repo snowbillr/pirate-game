@@ -2,12 +2,12 @@ import { Player } from '../player';
 import { WalkingState } from './walking-state';
 import { IdleState } from './idle-state';
 
-import { IStateDefinition } from './i-state-definition';
+import { IState} from './i-state';
 
 export class StateMachine {
   private player: Player;
   public states;
-  private currentState: IStateDefinition;
+  private currentState: IState;
 
   constructor(player, initialStateKey) {
     this.player = player;

@@ -1,8 +1,8 @@
 import { Player } from '../player';
-import { IStateDefinition } from './i-state-definition';
+import { IState} from './i-state';
 import { StateMachine } from './state-machine';
 
-export class WalkingState implements IStateDefinition {
+export class WalkingState implements IState{
   key: string;
   fsm: StateMachine;
 
