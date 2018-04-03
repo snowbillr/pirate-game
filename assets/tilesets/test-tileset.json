@@ -9,6 +9,10 @@
  "tileheight":128,
  "tileproperties":
     {
+     "64":
+        {
+         "collides":true
+        },
      "8":
         {
          "collides":true
@@ -16,6 +20,10 @@
     },
  "tilepropertytypes":
     {
+     "64":
+        {
+         "collides":"bool"
+        },
      "8":
         {
          "collides":"bool"

@@ -21,11 +21,11 @@ export class FallingState implements IState {
     if (player.controls.left.isDown) {
       player.sprite.flipX = true;
       this.direction = Phaser.LEFT;
-      player.sprite.body.velocity.x = -200;
+      player.sprite.body.velocity.x = -300;
     } else if (player.controls.right.isDown) {
       player.sprite.flipX = false;
       this.direction = Phaser.RIGHT;
-      player.sprite.body.velocity.x = 200;
+      player.sprite.body.velocity.x = 300;
     } else if (this.direction === Phaser.LEFT && !player.controls.left.isDown ||
         this.direction === Phaser.RIGHT && !player.controls.right.isDown) {
       this.direction = null;
