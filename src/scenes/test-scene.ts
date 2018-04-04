@@ -35,7 +35,7 @@ export class TestScene extends Phaser.Scene {
     this.player.create();
     this.add.existing(this.player.sprite);
 
-    this.cameras.main.setBounds(0, 0, 20 * this.tilemap.tileWidth, 10 * this.tilemap.tileHeight);
+    this.cameras.main.setBounds(0, 0, this.layer.width, this.layer.height);
     this.cameras.main.roundPixels = true;
     this.cameras.main.startFollow(this.player.sprite);
   }
