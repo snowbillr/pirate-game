@@ -41,6 +41,10 @@ export class HorizontalMovement {
 
     player.sprite.flipX = true;
     player.sprite.body.acceleration.x = -PlayerAttributes.horizontalAcceleration;
+
+    if (player.sprite.body.velocity.x > PlayerAttributes.horizontalTurnaroundBoostThreshold) {
+      player.sprite.body.velocity.x -= PlayerAttributes.horizontalTurnaroundBoost;
+    }
   }
 
   private startMovingRight(player: Player) {
@@ -48,6 +52,10 @@ export class HorizontalMovement {
 
     player.sprite.flipX = false;
     player.sprite.body.acceleration.x = PlayerAttributes.horizontalAcceleration;
+
+    if (player.sprite.body.velocity.x < -PlayerAttributes.horizontalTurnaroundBoostThreshold) {
+      player.sprite.body.velocity.x += PlayerAttributes.horizontalTurnaroundBoost;
+    }
   }
 
   private startSlowingDown(player: Player) {
