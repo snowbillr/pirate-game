@@ -18,7 +18,7 @@ export class FallingState extends PlayerState {
    super.onUpdate(player);
 
     if (player.sprite.body.blocked.down) {
-      if (this.components.horizontalMovement.direction === Phaser.LEFT || this.components.horizontalMovement.direction === Phaser.RIGHT) {
+      if (player.sprite.body.velocity.x !== 0) {
         this.psm.transition(this.psm.states.walking);
       } else {
         this.psm.transition(this.psm.states.idle);

@@ -26,7 +26,7 @@ export class WalkingState extends PlayerState {
       return this.psm.transition(this.psm.states.falling);
     }
 
-    if (this.components.horizontalMovement.direction === Phaser.NONE) {
+    if (player.sprite.body.velocity.x === 0) {
       return this.psm.transition(this.psm.states.idle);
     }
   }

@@ -6,39 +6,53 @@ export class HorizontalMovement {
 
   onEnter(player: Player) {
     if (player.controls.left.isDown) {
-      this.direction = Phaser.LEFT;
-
-      player.sprite.flipX = true;
-      player.sprite.body.velocity.x = -PlayerAttributes.horizontalMovementVelocity;
+      this.startMovingLeft(player);
     } else if (player.controls.right.isDown) {
-      this.direction = Phaser.RIGHT;
-
-      player.sprite.flipX = false;
-      player.sprite.body.velocity.x = PlayerAttributes.horizontalMovementVelocity;
+      this.startMovingRight(player);
     }
   }
 
   onUpdate(player: Player) {
-    if (player.controls.left.isDown) {
-      this.direction = Phaser.LEFT;
-
-      player.sprite.flipX = true;
-      player.sprite.body.velocity.x = -PlayerAttributes.horizontalMovementVelocity;
-    } else if (player.controls.right.isDown) {
-      this.direction = Phaser.RIGHT;
-
-      player.sprite.flipX = false;
-      player.sprite.body.velocity.x = PlayerAttributes.horizontalMovementVelocity;
+    if (player.controls.left.isDown && this.direction !== Phaser.LEFT) {
+      this.startMovingLeft(player);
+    } else if (player.controls.right.isDown && this.direction !== Phaser.RIGHT) {
+      this.startMovingRight(player);
     }
 
     if (this.direction === Phaser.LEFT && !player.controls.left.isDown ||
         this.direction === Phaser.RIGHT && !player.controls.right.isDown) {
-      this.direction = Phaser.NONE;
-      player.sprite.body.velocity.x = 0;
+      this.startSlowingDown(player);
+    }
+
+    if (this.direction === Phaser.NONE) {
+      if (Phaser.Math.Within(player.sprite.body.velocity.x, 0, PlayerAttributes.horizontalSlowdownThreshold)) {
+        player.sprite.body.acceleration.x = 0;
+        player.sprite.body.velocity.x = 0;
+      }
     }
   }
 
   onLeave() {
     this.direction = Phaser.NONE;
+  }
+
+  private startMovingLeft(player: Player) {
+    this.direction = Phaser.LEFT;
+
+    player.sprite.flipX = true;
+    player.sprite.body.acceleration.x = -PlayerAttributes.horizontalAcceleration;
+  }
+
+  private startMovingRight(player: Player) {
+    this.direction = Phaser.RIGHT;
+
+    player.sprite.flipX = false;
+    player.sprite.body.acceleration.x = PlayerAttributes.horizontalAcceleration;
+  }
+
+  private startSlowingDown(player: Player) {
+    this.direction = Phaser.NONE;
+
+    player.sprite.body.acceleration.x *= -PlayerAttributes.horizontalSlowdownMultiplier;
   }
 }

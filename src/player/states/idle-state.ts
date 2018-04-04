@@ -8,11 +8,15 @@ export class IdleState extends PlayerState {
   }
 
   onEnter(player: Player) {
+    super.onEnter(player);
+
     player.sprite.setFrame('adventurer_stand.png');
     player.sprite.body.velocity.x = 0;
   }
 
   onUpdate(player: Player) {
+    super.onUpdate(player);
+
     if (player.controls.left.isDown || player.controls.right.isDown) {
       this.psm.transition(this.psm.states.walking);
     }
@@ -25,6 +29,4 @@ export class IdleState extends PlayerState {
       this.psm.transition(this.psm.states.falling);
     }
   }
-
-  onLeave() {}
 }
