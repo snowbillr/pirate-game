@@ -13,9 +13,10 @@ export class Player {
   }
 
   create() {
-    this.sprite = new Phaser.Physics.Arcade.Sprite(this.scene, 200, 200, 'player');
+    this.sprite = new Phaser.Physics.Arcade.Sprite(this.scene, 200, 200, 'player_idle', 0);
     this.scene.physics.add.existing(this.sprite);
     this.sprite.body.maxVelocity.x = PlayerAttributes.maxHorizontalVelocity;
+    this.sprite.setScale(2);
 
     this.controls = this.scene.input.keyboard.addKeys({
       left: Phaser.Input.Keyboard.KeyCodes.LEFT,

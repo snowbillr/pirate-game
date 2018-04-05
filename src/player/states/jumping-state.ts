@@ -13,12 +13,16 @@ export class JumpingState extends PlayerState {
   onEnter(player: Player) {
     super.onEnter(player);
 
-    player.sprite.setFrame('adventurer_jump.png');
     player.sprite.body.velocity.y = -PlayerAttributes.jumpVelocity;
   }
 
   onUpdate(player: Player) {
-   super.onUpdate(player);
+    super.onUpdate(player);
+
+    const jumpProgress = 1 - Math.abs(player.sprite.body.velocity.y / PlayerAttributes.jumpVelocity);
+    const totalJumpFrames = 4;
+    const currentFrame = Phaser.Math.Clamp(Phaser.Math.RoundTo(totalJumpFrames * jumpProgress), 0, totalJumpFrames);
+    player.sprite.setTexture('player_jump', currentFrame);
 
     if (player.sprite.body.velocity.y >= 0) {
       this.psm.transition(this.psm.states.falling);

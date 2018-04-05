@@ -3,6 +3,7 @@ import { Player } from '../player';
 import { PlayerState } from './player-state';
 import { Accelerates } from './components/accelerates';
 import { Decelerates } from './components/decelerates';
+import { PlayerAttributes } from '../player-attributes';
 
 export class FallingState extends PlayerState {
   constructor(psm: PlayerStateMachine) {
@@ -11,12 +12,16 @@ export class FallingState extends PlayerState {
 
   onEnter(player: Player) {
     super.onEnter(player);
-
-    player.sprite.setFrame('adventurer_fall.png');
   }
 
   onUpdate(player: Player) {
-   super.onUpdate(player);
+    super.onUpdate(player);
+
+    const jumpProgress = Math.abs(player.sprite.body.velocity.y / PlayerAttributes.jumpVelocity);
+    const totalJumpFrames = 4;
+    const currentFrame = Phaser.Math.Clamp(totalJumpFrames - Phaser.Math.RoundTo(totalJumpFrames * jumpProgress), 0, totalJumpFrames);
+    player.sprite.setTexture('player_jump', currentFrame);
+
 
     if (player.sprite.body.blocked.down) {
       if (player.sprite.body.velocity.x !== 0) {

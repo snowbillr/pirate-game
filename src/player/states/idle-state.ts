@@ -11,7 +11,7 @@ export class IdleState extends PlayerState {
   onEnter(player: Player) {
     super.onEnter(player);
 
-    player.sprite.setFrame('adventurer_stand.png');
+    player.sprite.play('player_idle');
     player.sprite.body.velocity.x = 0;
   }
 
