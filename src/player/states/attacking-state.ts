@@ -5,6 +5,7 @@ import { Player } from "../player";
 import { Accelerates } from "./components/accelerates";
 
 export class AttackingState extends PlayerState {
+  direction: number;
   isAttacking: boolean;
 
   constructor(psm: PlayerStateMachine) {
@@ -16,6 +17,12 @@ export class AttackingState extends PlayerState {
   onEnter(player: Player) {
     super.onEnter(player);
 
+    if (player.sprite.flipX) {
+      this.direction = Phaser.LEFT;
+    } else {
+      this.direction = Phaser.RIGHT;
+    }
+
     this.isAttacking = true;
     this.setAttackAnimationCallback(player, () => this.isAttacking = false);
     player.sprite.play('player_attack')
@@ -23,6 +30,20 @@ export class AttackingState extends PlayerState {
 
   onUpdate(player: Player) {
     super.onUpdate(player);
+
+    if (this.isAttacking && player.sprite.anims.currentFrame.index <= 3) {
+      if (this.direction === Phaser.LEFT) {
+        player.sprite.flipX = true;
+        if (player.controls.right.isDown) {
+          player.sprite.body.acceleration.x = 0;
+        }
+      } else if (this.direction === Phaser.RIGHT) {
+        player.sprite.flipX = false;
+        if (player.controls.left.isDown) {
+          player.sprite.body.acceleration.x = 0;
+        }
+      }
+    }
 
     if (!this.isAttacking) {
       if (player.controls.left.isDown || player.controls.right.isDown) {
@@ -32,8 +53,9 @@ export class AttackingState extends PlayerState {
       }
     }
 
-    if (this.isAttacking && player.sprite.anims.currentFrame.index !== 2 && player.sprite.anims.currentFrame.index !== 3) {
-      player.sprite.flipX = player.controls.left.isDown;
+    if (this.isAttacking && player.sprite.anims.currentFrame.index > 3
+      && (player.controls.left.isDown && player.controls.right.isDown)) {
+      return this.psm.transition(this.psm.states.walking);
     }
   }
 
