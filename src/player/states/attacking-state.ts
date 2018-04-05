@@ -52,11 +52,6 @@ export class AttackingState extends PlayerState {
         return this.psm.transition(this.psm.states.idle);
       }
     }
-
-    if (this.isAttacking && player.sprite.anims.currentFrame.index > 3
-      && (player.controls.left.isDown && player.controls.right.isDown)) {
-      return this.psm.transition(this.psm.states.walking);
-    }
   }
 
   onLeave(player: Player) {
