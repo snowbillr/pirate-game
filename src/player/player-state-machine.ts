@@ -28,7 +28,7 @@ export class PlayerStateMachine {
     this.currentState.onUpdate(this.player);
   }
 
-  transition(to) {
+  transition(to: PlayerState) {
     if (this.currentState.key == to.key) {
       return;
     }

@@ -12,6 +12,7 @@ export class FallingState extends PlayerState {
 
   onEnter(player: Player) {
     super.onEnter(player);
+    console.log('falling');
   }
 
   onUpdate(player: Player) {
@@ -22,12 +23,15 @@ export class FallingState extends PlayerState {
     const currentFrame = Phaser.Math.Clamp(totalJumpFrames - Phaser.Math.RoundTo(totalJumpFrames * jumpProgress), 0, totalJumpFrames);
     player.sprite.setTexture('player_jump', currentFrame);
 
+    if (player.controls.attack.isDown) {
+      return this.psm.transition(this.psm.states.attacking);
+    }
 
     if (player.sprite.body.blocked.down) {
       if (player.sprite.body.velocity.x !== 0) {
-        this.psm.transition(this.psm.states.walking);
+        return this.psm.transition(this.psm.states.walking);
       } else {
-        this.psm.transition(this.psm.states.idle);
+        return this.psm.transition(this.psm.states.idle);
       }
     }
   }

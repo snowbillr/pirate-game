@@ -24,8 +24,12 @@ export class JumpingState extends PlayerState {
     const currentFrame = Phaser.Math.Clamp(Phaser.Math.RoundTo(totalJumpFrames * jumpProgress), 0, totalJumpFrames);
     player.sprite.setTexture('player_jump', currentFrame);
 
+    if (player.controls.attack.isDown) {
+      return this.psm.transition(this.psm.states.attacking);
+    }
+
     if (player.sprite.body.velocity.y >= 0) {
-      this.psm.transition(this.psm.states.falling);
+      return this.psm.transition(this.psm.states.falling);
     }
   }
 

@@ -9,13 +9,15 @@ export class AttackingState extends PlayerState {
   isAttacking: boolean;
 
   constructor(psm: PlayerStateMachine) {
-    super('falling', psm, [Accelerates, Decelerates]);
+    super('attacking', psm, [Accelerates, Decelerates]);
 
     this.isAttacking = false;
   }
 
   onEnter(player: Player) {
     super.onEnter(player);
+
+    console.log('in attack')
 
     if (player.sprite.flipX) {
       this.direction = Phaser.LEFT;
