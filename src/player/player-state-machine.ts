@@ -5,6 +5,7 @@ import { IdleState } from './states/idle-state';
 import { FallingState } from './states/falling-state';
 import { JumpingState } from './states/jumping-state';
 import { PlayerState } from './states/player-state';
+import { AttackingState } from './states/attacking-state';
 
 export class PlayerStateMachine {
   private player: Player;
@@ -18,6 +19,7 @@ export class PlayerStateMachine {
       walking: new WalkingState(this),
       falling: new FallingState(this),
       jumping: new JumpingState(this),
+      attacking: new AttackingState(this),
     }
     this.currentState = this.states[initialStateKey];
   }

@@ -26,6 +26,10 @@ export class IdleState extends PlayerState {
       this.psm.transition(this.psm.states.jumping);
     }
 
+    if (player.controls.attack.isDown) {
+      this.psm.transition(this.psm.states.attacking);
+    }
+
     if (!player.sprite.body.blocked.down) {
       this.psm.transition(this.psm.states.falling);
     }
