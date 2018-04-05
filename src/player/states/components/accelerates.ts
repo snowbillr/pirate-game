@@ -2,10 +2,6 @@ import { Player } from "../../player";
 import { PlayerAttributes } from "../../player-attributes";
 
 export class Accelerates {
-  // constructor(player: Player) {
-    // player.sprite.body.maxVelocity.x = PlayerAttributes.maxHorizontalVelocity;
-  // }
-
   onEnter() {
 
   }

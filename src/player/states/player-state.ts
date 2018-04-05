@@ -12,9 +12,8 @@ export abstract class PlayerState {
     this.key = key;
     this.psm = psm;
 
-    this.components = [];
-    componentClasses.forEach(componentClass => {
-      this.components.push(new componentClass());
+    this.components = componentClasses.map(componentClass => {
+      return new componentClass();
     });
   }
 
