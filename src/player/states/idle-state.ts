@@ -1,10 +1,11 @@
 import { Player } from '../player';
 import { PlayerStateMachine } from '../player-state-machine';
 import { PlayerState } from './player-state';
+import { Decelerates } from './components/decelerates';
 
 export class IdleState extends PlayerState {
   constructor(psm: PlayerStateMachine) {
-    super('idle', psm)
+    super('idle', psm, { decelerates: Decelerates })
   }
 
   onEnter(player: Player) {

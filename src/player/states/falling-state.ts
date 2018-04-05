@@ -1,11 +1,12 @@
 import { PlayerStateMachine } from '../player-state-machine';
 import { Player } from '../player';
-import { HorizontalMovement } from './components/horizontal-movement';
 import { PlayerState } from './player-state';
+import { Accelerates } from './components/accelerates';
+import { Decelerates } from './components/decelerates';
 
 export class FallingState extends PlayerState {
   constructor(psm: PlayerStateMachine) {
-    super('falling', psm, { horizontalMovement: HorizontalMovement });
+    super('falling', psm, { accelerates: Accelerates, decelerates: Decelerates });
   }
 
   onEnter(player: Player) {
