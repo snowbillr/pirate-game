@@ -22,6 +22,7 @@ export class Player {
       left: Phaser.Input.Keyboard.KeyCodes.LEFT,
       right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
       jump: Phaser.Input.Keyboard.KeyCodes.UP,
+      attack: Phaser.Input.Keyboard.KeyCodes.SPACE,
     });
 
     this.state = new PlayerStateMachine(this, 'idle');

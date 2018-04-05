@@ -11,7 +11,7 @@ export class TestScene extends Phaser.Scene {
     this.load.spritesheet('player_idle', 'assets/spritesheets/player/idle.png', { frameWidth: 64, frameHeight: 64 });
     this.load.spritesheet('player_walk', 'assets/spritesheets/player/walk.png', { frameWidth: 64, frameHeight: 64 });
     this.load.spritesheet('player_jump', 'assets/spritesheets/player/jump.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.spritesheet('player_stab', 'assets/spritesheets/player/stab.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('player_attack', 'assets/spritesheets/player/attack.png', { frameWidth: 64, frameHeight: 64 });
 
     // tilemap stuff
     this.load.image('kenney-platformer-redux-ground', 'assets/tilesets/kenney-platformer-redux-ground.png');
@@ -32,10 +32,10 @@ export class TestScene extends Phaser.Scene {
       repeat: -1,
     });
     this.anims.create({
-      key: 'player_stab',
-      frames: this.anims.generateFrameNumbers('player_stab', { start: 0, end: 4 }),
-      frameRate: 30,
-      repeat: -1,
+      key: 'player_attack',
+      frames: this.anims.generateFrameNumbers('player_attack', { start: 0, end: 4 }),
+      frameRate: 9,
+      repeat: 0,
     });
 
     this.tilemap = this.add.tilemap('test-map', 128, 128);
