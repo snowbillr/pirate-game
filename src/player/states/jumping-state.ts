@@ -7,7 +7,7 @@ import { Decelerates } from "./components/decelerates";
 
 export class JumpingState extends PlayerState {
   constructor(psm: PlayerStateMachine) {
-    super('jumping', psm, { accelerates: Accelerates, decelerates: Decelerates })
+    super('jumping', psm, [Accelerates, Decelerates])
   }
 
   onEnter(player: Player) {
