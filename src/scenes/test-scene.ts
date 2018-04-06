@@ -1,10 +1,13 @@
 import { Player } from "../player/player";
+import { Baddie } from "../baddie/baddie";
 
 export class TestScene extends Phaser.Scene {
   private player: Player;
+  private baddie: Baddie;
 
   init() {
     this.player = new Player();
+    this.baddie = new Baddie();
   }
 
   preload() {
@@ -12,6 +15,8 @@ export class TestScene extends Phaser.Scene {
     this.load.spritesheet('player_walk', 'assets/spritesheets/player/walk.png', { frameWidth: 64, frameHeight: 64 });
     this.load.spritesheet('player_jump', 'assets/spritesheets/player/jump.png', { frameWidth: 64, frameHeight: 64 });
     this.load.spritesheet('player_attack', 'assets/spritesheets/player/attack.png', { frameWidth: 64, frameHeight: 64 });
+
+    this.load.image('zombie_stand', 'assets/spritesheets/zombie/stand.png');
 
     // tilemap stuff
     this.load.image('kenney-platformer-redux-ground', 'assets/tilesets/kenney-platformer-redux-ground.png');
@@ -44,6 +49,9 @@ export class TestScene extends Phaser.Scene {
 
     this.layer.setCollisionByProperty({ collides: true }, true)
 
+    this.baddie.create(this);
+    this.add.existing(this.baddie.sprite);
+
     this.player.create(this);
     this.add.existing(this.player.sprite);
 
@@ -56,5 +64,6 @@ export class TestScene extends Phaser.Scene {
     this.player.update();
 
     this.physics.add.collider(this.player.sprite, this.layer);
+    this.physics.add.collider(this.baddie.sprite, this.layer);
   }
 }

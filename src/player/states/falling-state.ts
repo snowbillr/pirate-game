@@ -12,7 +12,6 @@ export class FallingState extends PlayerState {
 
   onEnter(player: Player) {
     super.onEnter(player);
-    console.log('falling');
   }
 
   onUpdate(player: Player) {

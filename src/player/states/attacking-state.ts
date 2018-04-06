@@ -17,8 +17,6 @@ export class AttackingState extends PlayerState {
   onEnter(player: Player) {
     super.onEnter(player);
 
-    console.log('in attack')
-
     if (player.sprite.flipX) {
       this.direction = Phaser.LEFT;
     } else {

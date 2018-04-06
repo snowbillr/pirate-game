@@ -2,15 +2,10 @@ import { PlayerStateMachine } from "./player-state-machine";
 import { PlayerAttributes } from "./player-attributes";
 
 export class Player {
-  // private scene; //: Phaser.Scene;
   public sprite; //: Phaser.GameObjects.Sprite;
   public controls; //: { [string]: Phaser.Input.Keyboard.Key }
 
   private state: PlayerStateMachine;
-
-  constructor() {
-    // this.scene = scene;
-  }
 
   create(scene) {
     this.sprite = new Phaser.Physics.Arcade.Sprite(scene, 200, 200, 'player_idle', 0);
