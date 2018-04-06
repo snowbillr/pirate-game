@@ -2,23 +2,23 @@ import { PlayerStateMachine } from "./player-state-machine";
 import { PlayerAttributes } from "./player-attributes";
 
 export class Player {
-  private scene; //: Phaser.Scene;
+  // private scene; //: Phaser.Scene;
   public sprite; //: Phaser.GameObjects.Sprite;
   public controls; //: { [string]: Phaser.Input.Keyboard.Key }
 
   private state: PlayerStateMachine;
 
-  constructor(scene) {
-    this.scene = scene;
+  constructor() {
+    // this.scene = scene;
   }
 
-  create() {
-    this.sprite = new Phaser.Physics.Arcade.Sprite(this.scene, 200, 200, 'player_idle', 0);
-    this.scene.physics.add.existing(this.sprite);
+  create(scene) {
+    this.sprite = new Phaser.Physics.Arcade.Sprite(scene, 200, 200, 'player_idle', 0);
+    scene.physics.add.existing(this.sprite);
     this.sprite.body.maxVelocity.x = PlayerAttributes.maxHorizontalVelocity;
     this.sprite.setScale(2);
 
-    this.controls = this.scene.input.keyboard.addKeys({
+    this.controls = scene.input.keyboard.addKeys({
       left: Phaser.Input.Keyboard.KeyCodes.LEFT,
       right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
       jump: Phaser.Input.Keyboard.KeyCodes.UP,

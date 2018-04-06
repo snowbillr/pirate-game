@@ -4,7 +4,7 @@ export class TestScene extends Phaser.Scene {
   private player: Player;
 
   init() {
-    this.player = new Player(this);
+    this.player = new Player();
   }
 
   preload() {
@@ -44,7 +44,7 @@ export class TestScene extends Phaser.Scene {
 
     this.layer.setCollisionByProperty({ collides: true }, true)
 
-    this.player.create();
+    this.player.create(this);
     this.add.existing(this.player.sprite);
 
     this.cameras.main.setBounds(0, 0, this.layer.width, this.layer.height);

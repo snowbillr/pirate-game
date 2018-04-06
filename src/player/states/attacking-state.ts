@@ -48,6 +48,12 @@ export class AttackingState extends PlayerState {
     }
 
     if (!this.isAttacking) {
+      if (player.sprite.body.velocity.y >= 0) {
+        return this.psm.transition(this.psm.states.falling);
+      } else if (player.sprite.body.velocity.y < 0) {
+        return this.psm.transition(this.psm.states.jumping);
+      }
+
       if (player.controls.left.isDown || player.controls.right.isDown) {
         return this.psm.transition(this.psm.states.walking);
       } else {
