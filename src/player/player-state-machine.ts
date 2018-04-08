@@ -37,4 +37,8 @@ export class PlayerStateMachine {
     this.currentState = to;
     this.currentState.onEnter(this.player);
   }
+
+  getCurrentStateKey() {
+    return this.currentState.key;
+  }
 }

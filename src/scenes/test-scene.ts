@@ -55,6 +55,8 @@ export class TestScene extends Phaser.Scene {
     this.player.create(this);
     this.add.existing(this.player.sprite);
 
+    this.hitboxDebug = this.add.graphics();
+
     this.cameras.main.setBounds(0, 0, this.layer.width, this.layer.height);
     this.cameras.main.roundPixels = true;
     this.cameras.main.startFollow(this.player.sprite);
@@ -65,5 +67,23 @@ export class TestScene extends Phaser.Scene {
 
     this.physics.add.collider(this.player.sprite, this.layer);
     this.physics.add.collider(this.baddie.sprite, this.layer);
+
+    this.hitboxDebug.clear();
+
+    const activeHitBoxes = this.player.getActiveHitBox();
+    if (activeHitBoxes) {
+      for (let i = 0; i < activeHitBoxes.length; i++) {
+        let activeHitBox = activeHitBoxes[i];
+        let adjustedHitBox = Phaser.Geom.Circle.Clone(activeHitBox);
+        adjustedHitBox.setPosition(this.player.sprite.x + activeHitBox.x, this.player.sprite.y + activeHitBox.y);
+        this.hitboxDebug.fillStyle(0x9966ff, 0.5);
+        this.hitboxDebug.fillCircleShape(adjustedHitBox);
+
+
+        if (Phaser.Geom.Intersects.CircleToRectangle(adjustedHitBox, this.baddie.sprite.getBounds())) {
+          this.baddie.sprite.tint = 0xFF0000;
+        }
+      }
+    }
   }
 }
