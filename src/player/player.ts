@@ -28,13 +28,13 @@ export class Player {
       attack: Phaser.Input.Keyboard.KeyCodes.SPACE,
     });
 
-    this.newState = new StateMachine<Player>(this, {
-      [PlayerStateKeys.IDLING]: IdleState,
-      [PlayerStateKeys.WALKING]: WalkingState,
-      [PlayerStateKeys.ATTACKING]: AttackingState,
-      [PlayerStateKeys.JUMPING]: JumpingState,
-      [PlayerStateKeys.FALLING]: FallingState,
-    }, PlayerStateKeys.IDLING);
+    this.newState = new StateMachine<Player>(this, [
+      IdleState,
+      WalkingState,
+      AttackingState,
+      JumpingState,
+      FallingState,
+    ], PlayerStateKeys.IDLING);
 
     this.hitBoxes = {
       attacking: {

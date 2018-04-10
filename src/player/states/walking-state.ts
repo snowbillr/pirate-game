@@ -6,9 +6,10 @@ import { StateMachine } from '../../lib/state-machine/state-machine';
 import { PlayerStateKeys } from '../player-state-keys';
 
 export class WalkingState extends State<Player> {
+  public static key: string = PlayerStateKeys.WALKING;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super(PlayerStateKeys.WALKING, stateMachine, [Accelerates, Decelerates])
+    super(stateMachine, [Accelerates, Decelerates])
   }
 
   onEnter(player: Player) {

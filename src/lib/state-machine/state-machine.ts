@@ -1,16 +1,17 @@
 import { State } from "./state";
 
 export class StateMachine<T> {
+  private currentStateKey: string;
   private currentState: State<T>;
-  public states: {};
+  private states: {};
 
-  constructor(private parent: T, states: {}, initialStateKey: string) {
-    this.states = {};
+  constructor(private parent: T, stateClasses: any[], initialStateKey: string) {
+    this.states = stateClasses.reduce((states, stateClass) => {
+      states[stateClass.key] = new stateClass(this);
+      return states;
+    }, {})
 
-    Object.keys(states).forEach(stateKey => {
-      this.states[stateKey] = new states[stateKey](this);
-    });
-
+    this.currentStateKey = initialStateKey;
     this.currentState = this.states[initialStateKey];
     this.currentState.onEnter(this.parent);
   }
@@ -20,16 +21,19 @@ export class StateMachine<T> {
   }
 
   transition(toKey: string) {
-    if (this.currentState.key == this.states[toKey]) {
+    if (toKey === this.currentStateKey) {
       return;
     }
 
     this.currentState.onLeave(this.parent);
+
     this.currentState = this.states[toKey];
+    this.currentStateKey = toKey;
+
     this.currentState.onEnter(this.parent);
   }
 
   getCurrentStateKey() {
-    return this.currentState.key;
+    return this.currentStateKey;
   }
 }

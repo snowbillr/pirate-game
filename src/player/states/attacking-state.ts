@@ -6,11 +6,13 @@ import { StateMachine } from "../../lib/state-machine/state-machine";
 import { PlayerStateKeys } from "../player-state-keys";
 
 export class AttackingState extends State<Player> {
+  public static key: string = PlayerStateKeys.ATTACKING;
+
   direction: number;
   isAttacking: boolean;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super(PlayerStateKeys.ATTACKING, stateMachine, [Accelerates, Decelerates]);
+    super( stateMachine, [Accelerates, Decelerates]);
 
     this.isAttacking = false;
   }

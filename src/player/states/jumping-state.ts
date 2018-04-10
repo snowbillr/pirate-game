@@ -7,8 +7,10 @@ import { StateMachine } from "../../lib/state-machine/state-machine";
 import { PlayerStateKeys } from "../player-state-keys";
 
 export class JumpingState extends State<Player> {
+  public static key: string = PlayerStateKeys.JUMPING;
+
   constructor(stateMachine: StateMachine<Player>) {
-    super(PlayerStateKeys.JUMPING, stateMachine, [Accelerates, Decelerates])
+    super(stateMachine, [Accelerates, Decelerates])
   }
 
   onEnter(player: Player) {

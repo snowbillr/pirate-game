@@ -5,8 +5,10 @@ import { StateMachine } from '../../lib/state-machine/state-machine';
 import { PlayerStateKeys } from '../player-state-keys';
 
 export class IdleState extends State<Player> {
+  public static key: string = PlayerStateKeys.IDLING;
+
   constructor(stateMachine: StateMachine<Player>) {
-    super(PlayerStateKeys.IDLING, stateMachine, [Decelerates])
+    super(stateMachine, [Decelerates])
   }
 
   onEnter(player: Player) {

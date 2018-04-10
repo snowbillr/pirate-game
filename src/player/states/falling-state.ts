@@ -1,6 +1,4 @@
-// import { PlayerStateMachine } from '../player-state-machine';
 import { Player } from '../player';
-// import { PlayerState } from './player-state';
 import { Accelerates } from './components/accelerates';
 import { Decelerates } from './components/decelerates';
 import { PlayerAttributes } from '../player-attributes';
@@ -9,8 +7,10 @@ import { StateMachine } from '../../lib/state-machine/state-machine';
 import { PlayerStateKeys } from '../player-state-keys';
 
 export class FallingState extends State<Player> {
+  public static key: string = PlayerStateKeys.FALLING;
+
   constructor(stateMachine: StateMachine<Player>) {
-    super(PlayerStateKeys.FALLING, stateMachine, [Accelerates, Decelerates]);
+    super( stateMachine, [Accelerates, Decelerates]);
   }
 
   onEnter(player: Player) {

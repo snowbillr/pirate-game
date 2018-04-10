@@ -2,12 +2,10 @@ import { IStateComponent } from "./i-state-component";
 import { StateMachine } from "./state-machine";
 
 export class State<T> {
-  public key: string;
+  public static key: string;
   private components: IStateComponent<T>[];
 
-  constructor(key: string, protected stateMachine: StateMachine<T>, componentClasses: any[]) {
-    this.key = key;
-
+  constructor(protected stateMachine: StateMachine<T>, componentClasses: any[]) {
     this.components = componentClasses.map(componentClass => {
       return new componentClass();
     });
