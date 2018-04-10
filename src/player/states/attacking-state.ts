@@ -18,8 +18,6 @@ export class AttackingState extends State<Player> {
   }
 
   onEnter(player: Player) {
-    super.onEnter(player);
-
     if (player.sprite.flipX) {
       this.direction = Phaser.LEFT;
     } else {
@@ -32,8 +30,6 @@ export class AttackingState extends State<Player> {
   }
 
   onUpdate(player: Player) {
-    super.onUpdate(player);
-
     if (this.isAttacking && player.sprite.anims.currentFrame.index <= 3) {
       if (this.direction === Phaser.LEFT) {
         player.sprite.flipX = true;
@@ -64,8 +60,6 @@ export class AttackingState extends State<Player> {
   }
 
   onLeave(player: Player) {
-    super.onLeave(player);
-
     this.setAttackAnimationCallback(player, Phaser.NOOP);
     this.isAttacking = false;
   }

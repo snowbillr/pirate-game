@@ -13,14 +13,10 @@ export class WalkingState extends State<Player> {
   }
 
   onEnter(player: Player) {
-    super.onEnter(player);
-
     player.sprite.play('player_walk');
   }
 
   onUpdate(player: Player) {
-    super.onUpdate(player);
-
     if (player.controls.jump.isDown) {
       return this.stateMachine.transition(PlayerStateKeys.JUMPING);
     }
@@ -39,8 +35,6 @@ export class WalkingState extends State<Player> {
   }
 
   onLeave(player: Player) {
-    super.onLeave(player);
-
     player.sprite.anims.stop();
   }
 }

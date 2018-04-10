@@ -11,7 +11,7 @@ export class Player {
   public sprite; //: Phaser.GameObjects.Sprite;
   public controls; //: { [string]: Phaser.Input.Keyboard.Key }
 
-  private newState: StateMachine<Player>;
+  private state: StateMachine<Player>;
 
   private hitBoxes: any;
 
@@ -28,7 +28,7 @@ export class Player {
       attack: Phaser.Input.Keyboard.KeyCodes.SPACE,
     });
 
-    this.newState = new StateMachine<Player>(this, [
+    this.state = new StateMachine<Player>(this, [
       IdleState,
       WalkingState,
       AttackingState,
@@ -55,11 +55,11 @@ export class Player {
   }
 
   update() {
-    this.newState.update();
+    this.state.update();
   }
 
   getActiveHitBox() {
-    if (this.newState.getCurrentStateKey() === PlayerStateKeys.ATTACKING) {
+    if (this.state.getCurrentStateKey() === PlayerStateKeys.ATTACKING) {
       return this.hitBoxes.attacking[this.sprite.anims.currentFrame.index]
     }
   }

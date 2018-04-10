@@ -14,14 +14,10 @@ export class JumpingState extends State<Player> {
   }
 
   onEnter(player: Player) {
-    super.onEnter(player);
-
     player.sprite.body.velocity.y = -PlayerAttributes.jumpVelocity;
   }
 
   onUpdate(player: Player) {
-    super.onUpdate(player);
-
     const jumpProgress = 1 - Math.abs(player.sprite.body.velocity.y / PlayerAttributes.jumpVelocity);
     const totalJumpFrames = 4;
     const currentFrame = Phaser.Math.Clamp(Phaser.Math.RoundTo(totalJumpFrames * jumpProgress), 0, totalJumpFrames);
@@ -36,7 +32,5 @@ export class JumpingState extends State<Player> {
     }
   }
 
-  onLeave(player: Player) {
-    super.onLeave(player);
-  }
+  onLeave() {}
 }

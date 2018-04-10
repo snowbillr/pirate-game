@@ -13,11 +13,11 @@ export class StateMachine<T> {
 
     this.currentStateKey = initialStateKey;
     this.currentState = this.states[initialStateKey];
-    this.currentState.onEnter(this.parent);
+    this.currentState.lifecycleOnEnter(this.parent);
   }
 
   update() {
-    this.currentState.onUpdate(this.parent);
+    this.currentState.lifecycleOnUpdate(this.parent);
   }
 
   transition(toKey: string) {
@@ -25,12 +25,12 @@ export class StateMachine<T> {
       return;
     }
 
-    this.currentState.onLeave(this.parent);
+    this.currentState.lifecycleOnLeave(this.parent);
 
     this.currentState = this.states[toKey];
     this.currentStateKey = toKey;
 
-    this.currentState.onEnter(this.parent);
+    this.currentState.lifecycleOnEnter(this.parent);
   }
 
   getCurrentStateKey() {

@@ -12,15 +12,11 @@ export class IdleState extends State<Player> {
   }
 
   onEnter(player: Player) {
-    super.onEnter(player);
-
     player.sprite.play('player_idle');
     player.sprite.body.velocity.x = 0;
   }
 
   onUpdate(player: Player) {
-    super.onUpdate(player);
-
     if (player.controls.left.isDown || player.controls.right.isDown) {
       this.stateMachine.transition(PlayerStateKeys.WALKING);
     }
@@ -37,4 +33,6 @@ export class IdleState extends State<Player> {
       this.stateMachine.transition(PlayerStateKeys.FALLING);
     }
   }
+
+  onLeave() {}
 }

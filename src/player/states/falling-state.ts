@@ -13,13 +13,9 @@ export class FallingState extends State<Player> {
     super( stateMachine, [Accelerates, Decelerates]);
   }
 
-  onEnter(player: Player) {
-    super.onEnter(player);
-  }
+  onEnter() {}
 
   onUpdate(player: Player) {
-    super.onUpdate(player);
-
     const jumpProgress = Math.abs(player.sprite.body.velocity.y / PlayerAttributes.jumpVelocity);
     const totalJumpFrames = 4;
     const currentFrame = Phaser.Math.Clamp(totalJumpFrames - Phaser.Math.RoundTo(totalJumpFrames * jumpProgress), 0, totalJumpFrames);
@@ -38,7 +34,5 @@ export class FallingState extends State<Player> {
     }
   }
 
-  onLeave(player: Player) {
-    super.onLeave(player);
-  }
+  onLeave() {}
 }
