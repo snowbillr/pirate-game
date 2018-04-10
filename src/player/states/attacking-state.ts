@@ -1,11 +1,9 @@
-// import { PlayerState } from "./player-state";
-// import { PlayerStateMachine } from "../player-state-machine";
 import { Decelerates } from "./components/decelerates";
 import { Player } from "../player";
 import { Accelerates } from "./components/accelerates";
 import { State } from "../../lib/state-machine/state";
 import { StateMachine } from "../../lib/state-machine/state-machine";
-import { PlayerStateKeys } from "./state-keys";
+import { PlayerStateKeys } from "../player-state-keys";
 
 export class AttackingState extends State<Player> {
   direction: number;

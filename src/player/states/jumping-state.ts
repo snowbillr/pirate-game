@@ -1,12 +1,10 @@
-// import { PlayerStateMachine } from "../player-state-machine";
 import { Player } from "../player";
-// import { PlayerState } from "./player-state";
 import { PlayerAttributes } from "../player-attributes";
 import { Accelerates } from "./components/accelerates";
 import { Decelerates } from "./components/decelerates";
 import { State } from "../../lib/state-machine/state";
 import { StateMachine } from "../../lib/state-machine/state-machine";
-import { PlayerStateKeys } from "./state-keys";
+import { PlayerStateKeys } from "../player-state-keys";
 
 export class JumpingState extends State<Player> {
   constructor(stateMachine: StateMachine<Player>) {

@@ -5,7 +5,7 @@ import { WalkingState } from "./states/walking-state";
 import { AttackingState } from "./states/attacking-state";
 import { JumpingState } from "./states/jumping-state";
 import { FallingState } from "./states/falling-state";
-import { PlayerStateKeys } from "./states/state-keys";
+import { PlayerStateKeys } from "./player-state-keys";
 
 export class Player {
   public sprite; //: Phaser.GameObjects.Sprite;
