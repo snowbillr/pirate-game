@@ -6,11 +6,11 @@ import { Accelerates } from "./components/accelerates";
 import { Decelerates } from "./components/decelerates";
 import { State } from "../../lib/state-machine/state";
 import { StateMachine } from "../../lib/state-machine/state-machine";
-import { PlayerStates } from "./state-keys";
+import { PlayerStateKeys } from "./state-keys";
 
 export class JumpingState extends State<Player> {
   constructor(stateMachine: StateMachine<Player>) {
-    super(PlayerStates.JUMPING, stateMachine, [Accelerates, Decelerates])
+    super(PlayerStateKeys.JUMPING, stateMachine, [Accelerates, Decelerates])
   }
 
   onEnter(player: Player) {
@@ -28,11 +28,11 @@ export class JumpingState extends State<Player> {
     player.sprite.setTexture('player_jump', currentFrame);
 
     if (player.controls.attack.isDown) {
-      return this.stateMachine.transition(PlayerStates.ATTACKING);
+      return this.stateMachine.transition(PlayerStateKeys.ATTACKING);
     }
 
     if (player.sprite.body.velocity.y >= 0) {
-      return this.stateMachine.transition(PlayerStates.FALLING);
+      return this.stateMachine.transition(PlayerStateKeys.FALLING);
     }
   }
 

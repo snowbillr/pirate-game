@@ -1,7 +1,7 @@
-export enum PlayerStates {
+export enum PlayerStateKeys {
   ATTACKING = 'ATTACKING',
   FALLING = 'FALLING',
-  IDLE = 'IDLE',
+  IDLING = 'IDLING',
   JUMPING = 'JUMPING',
   WALKING = 'WALKING',
 }

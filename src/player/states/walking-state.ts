@@ -3,12 +3,12 @@ import { Accelerates } from './components/accelerates';
 import { Decelerates } from './components/decelerates';
 import { State } from '../../lib/state-machine/state';
 import { StateMachine } from '../../lib/state-machine/state-machine';
-import { PlayerStates } from './state-keys';
+import { PlayerStateKeys } from './state-keys';
 
 export class WalkingState extends State<Player> {
 
   constructor(stateMachine: StateMachine<Player>) {
-    super(PlayerStates.WALKING, stateMachine, [Accelerates, Decelerates])
+    super(PlayerStateKeys.WALKING, stateMachine, [Accelerates, Decelerates])
   }
 
   onEnter(player: Player) {
@@ -21,19 +21,19 @@ export class WalkingState extends State<Player> {
     super.onUpdate(player);
 
     if (player.controls.jump.isDown) {
-      return this.stateMachine.transition(PlayerStates.JUMPING);
+      return this.stateMachine.transition(PlayerStateKeys.JUMPING);
     }
 
     if (player.controls.attack.isDown) {
-      this.stateMachine.transition(PlayerStates.ATTACKING);
+      this.stateMachine.transition(PlayerStateKeys.ATTACKING);
     }
 
     if (!player.sprite.body.blocked.down) {
-      return this.stateMachine.transition(PlayerStates.FALLING);
+      return this.stateMachine.transition(PlayerStateKeys.FALLING);
     }
 
     if (player.sprite.body.velocity.x === 0) {
-      return this.stateMachine.transition(PlayerStates.IDLE);
+      return this.stateMachine.transition(PlayerStateKeys.IDLING);
     }
   }
 

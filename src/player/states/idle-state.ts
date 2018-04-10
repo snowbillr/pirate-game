@@ -2,11 +2,11 @@ import { Player } from '../player';
 import { Decelerates } from './components/decelerates';
 import { State } from '../../lib/state-machine/state';
 import { StateMachine } from '../../lib/state-machine/state-machine';
-import { PlayerStates } from './state-keys';
+import { PlayerStateKeys } from './state-keys';
 
 export class IdleState extends State<Player> {
   constructor(stateMachine: StateMachine<Player>) {
-    super(PlayerStates.IDLE, stateMachine, [Decelerates])
+    super(PlayerStateKeys.IDLING, stateMachine, [Decelerates])
   }
 
   onEnter(player: Player) {
@@ -20,19 +20,19 @@ export class IdleState extends State<Player> {
     super.onUpdate(player);
 
     if (player.controls.left.isDown || player.controls.right.isDown) {
-      this.stateMachine.transition(PlayerStates.WALKING);
+      this.stateMachine.transition(PlayerStateKeys.WALKING);
     }
 
     if (player.controls.jump.isDown) {
-      this.stateMachine.transition(PlayerStates.JUMPING);
+      this.stateMachine.transition(PlayerStateKeys.JUMPING);
     }
 
     if (player.controls.attack.isDown) {
-      this.stateMachine.transition(PlayerStates.ATTACKING);
+      this.stateMachine.transition(PlayerStateKeys.ATTACKING);
     }
 
     if (!player.sprite.body.blocked.down) {
-      this.stateMachine.transition(PlayerStates.FALLING);
+      this.stateMachine.transition(PlayerStateKeys.FALLING);
     }
   }
 }
