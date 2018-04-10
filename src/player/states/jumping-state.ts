@@ -1,13 +1,15 @@
-import { PlayerStateMachine } from "../player-state-machine";
+// import { PlayerStateMachine } from "../player-state-machine";
 import { Player } from "../player";
-import { PlayerState } from "./player-state";
+// import { PlayerState } from "./player-state";
 import { PlayerAttributes } from "../player-attributes";
 import { Accelerates } from "./components/accelerates";
 import { Decelerates } from "./components/decelerates";
+import { State } from "../../lib/state-machine/state";
+import { StateMachine } from "../../lib/state-machine/state-machine";
 
-export class JumpingState extends PlayerState {
-  constructor(psm: PlayerStateMachine) {
-    super('jumping', psm, [Accelerates, Decelerates])
+export class JumpingState extends State<Player> {
+  constructor(stateMachine: StateMachine<Player>) {
+    super('jumping', stateMachine, [Accelerates, Decelerates])
   }
 
   onEnter(player: Player) {
@@ -25,11 +27,11 @@ export class JumpingState extends PlayerState {
     player.sprite.setTexture('player_jump', currentFrame);
 
     if (player.controls.attack.isDown) {
-      return this.psm.transition(this.psm.states.attacking);
+      return this.stateMachine.transition('attacking');
     }
 
     if (player.sprite.body.velocity.y >= 0) {
-      return this.psm.transition(this.psm.states.falling);
+      return this.stateMachine.transition('falling');
     }
   }
 

@@ -1,15 +1,17 @@
-import { PlayerState } from "./player-state";
-import { PlayerStateMachine } from "../player-state-machine";
+// import { PlayerState } from "./player-state";
+// import { PlayerStateMachine } from "../player-state-machine";
 import { Decelerates } from "./components/decelerates";
 import { Player } from "../player";
 import { Accelerates } from "./components/accelerates";
+import { State } from "../../lib/state-machine/state";
+import { StateMachine } from "../../lib/state-machine/state-machine";
 
-export class AttackingState extends PlayerState {
+export class AttackingState extends State<Player> {
   direction: number;
   isAttacking: boolean;
 
-  constructor(psm: PlayerStateMachine) {
-    super('attacking', psm, [Accelerates, Decelerates]);
+  constructor(stateMachine: StateMachine<Player>) {
+    super('attacking', stateMachine, [Accelerates, Decelerates]);
 
     this.isAttacking = false;
   }
@@ -47,15 +49,15 @@ export class AttackingState extends PlayerState {
 
     if (!this.isAttacking) {
       if (player.sprite.body.velocity.y >= 0) {
-        return this.psm.transition(this.psm.states.falling);
+        return this.stateMachine.transition('falling');
       } else if (player.sprite.body.velocity.y < 0) {
-        return this.psm.transition(this.psm.states.jumping);
+        return this.stateMachine.transition('jumping');
       }
 
       if (player.controls.left.isDown || player.controls.right.isDown) {
-        return this.psm.transition(this.psm.states.walking);
+        return this.stateMachine.transition('walking');
       } else {
-        return this.psm.transition(this.psm.states.idle);
+        return this.stateMachine.transition('idle');
       }
     }
   }

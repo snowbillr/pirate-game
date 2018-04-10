@@ -1,7 +1,8 @@
 import { Player } from "../../player";
 import { PlayerAttributes } from "../../player-attributes";
+import { IStateComponent } from "../../../lib/state-machine/i-state-component";
 
-export class Accelerates {
+export class Accelerates implements IStateComponent<Player> {
   onEnter() {
 
   }

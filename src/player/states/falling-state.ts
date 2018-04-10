@@ -1,13 +1,15 @@
-import { PlayerStateMachine } from '../player-state-machine';
+// import { PlayerStateMachine } from '../player-state-machine';
 import { Player } from '../player';
-import { PlayerState } from './player-state';
+// import { PlayerState } from './player-state';
 import { Accelerates } from './components/accelerates';
 import { Decelerates } from './components/decelerates';
 import { PlayerAttributes } from '../player-attributes';
+import { State } from '../../lib/state-machine/state';
+import { StateMachine } from '../../lib/state-machine/state-machine';
 
-export class FallingState extends PlayerState {
-  constructor(psm: PlayerStateMachine) {
-    super('falling', psm, [Accelerates, Decelerates]);
+export class FallingState extends State<Player> {
+  constructor(stateMachine: StateMachine<Player>) {
+    super('falling', stateMachine, [Accelerates, Decelerates]);
   }
 
   onEnter(player: Player) {
@@ -23,14 +25,14 @@ export class FallingState extends PlayerState {
     player.sprite.setTexture('player_jump', currentFrame);
 
     if (player.controls.attack.isDown) {
-      return this.psm.transition(this.psm.states.attacking);
+      return this.stateMachine.transition('attacking');
     }
 
     if (player.sprite.body.blocked.down) {
       if (player.sprite.body.velocity.x !== 0) {
-        return this.psm.transition(this.psm.states.walking);
+        return this.stateMachine.transition('walking');
       } else {
-        return this.psm.transition(this.psm.states.idle);
+        return this.stateMachine.transition('idle');
       }
     }
   }
