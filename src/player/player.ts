@@ -5,6 +5,7 @@ import { WalkingState } from "./states/walking-state";
 import { AttackingState } from "./states/attacking-state";
 import { JumpingState } from "./states/jumping-state";
 import { FallingState } from "./states/falling-state";
+import { PlayerStates } from "./states/state-keys";
 
 export class Player {
   public sprite; //: Phaser.GameObjects.Sprite;
@@ -28,12 +29,12 @@ export class Player {
     });
 
     this.newState = new StateMachine<Player>(this, {
-      idle: IdleState,
-      walking: WalkingState,
-      attacking: AttackingState,
-      jumping: JumpingState,
-      falling: FallingState,
-    }, 'idle')
+      [PlayerStates.IDLE]: IdleState,
+      [PlayerStates.WALKING]: WalkingState,
+      [PlayerStates.ATTACKING]: AttackingState,
+      [PlayerStates.JUMPING]: JumpingState,
+      [PlayerStates.FALLING]: FallingState,
+    }, PlayerStates.IDLE);
 
     this.hitBoxes = {
       attacking: {
@@ -58,7 +59,7 @@ export class Player {
   }
 
   getActiveHitBox() {
-    if (this.newState.getCurrentStateKey() === 'attacking') {
+    if (this.newState.getCurrentStateKey() === PlayerStates.ATTACKING) {
       return this.hitBoxes.attacking[this.sprite.anims.currentFrame.index]
     }
   }

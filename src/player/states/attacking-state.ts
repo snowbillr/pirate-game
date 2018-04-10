@@ -5,13 +5,14 @@ import { Player } from "../player";
 import { Accelerates } from "./components/accelerates";
 import { State } from "../../lib/state-machine/state";
 import { StateMachine } from "../../lib/state-machine/state-machine";
+import { PlayerStates } from "./state-keys";
 
 export class AttackingState extends State<Player> {
   direction: number;
   isAttacking: boolean;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super('attacking', stateMachine, [Accelerates, Decelerates]);
+    super(PlayerStates.ATTACKING, stateMachine, [Accelerates, Decelerates]);
 
     this.isAttacking = false;
   }
@@ -49,15 +50,15 @@ export class AttackingState extends State<Player> {
 
     if (!this.isAttacking) {
       if (player.sprite.body.velocity.y >= 0) {
-        return this.stateMachine.transition('falling');
+        return this.stateMachine.transition(PlayerStates.FALLING);
       } else if (player.sprite.body.velocity.y < 0) {
-        return this.stateMachine.transition('jumping');
+        return this.stateMachine.transition(PlayerStates.JUMPING);
       }
 
       if (player.controls.left.isDown || player.controls.right.isDown) {
-        return this.stateMachine.transition('walking');
+        return this.stateMachine.transition(PlayerStates.WALKING);
       } else {
-        return this.stateMachine.transition('idle');
+        return this.stateMachine.transition(PlayerStates.IDLE);
       }
     }
   }
