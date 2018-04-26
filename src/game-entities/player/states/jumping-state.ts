@@ -2,9 +2,9 @@ import { Player } from "../player";
 import { PlayerAttributes } from "../player-attributes";
 import { Accelerates } from "./components/accelerates";
 import { Decelerates } from "./components/decelerates";
-import { State } from "../../lib/state-machine/state";
-import { StateMachine } from "../../lib/state-machine/state-machine";
 import { PlayerStateKeys } from "../player-state-keys";
+import { State } from "../../../lib/state-machine/state";
+import { StateMachine } from "../../../lib/state-machine/state-machine";
 
 export class JumpingState extends State<Player> {
   public static key: string = PlayerStateKeys.JUMPING;

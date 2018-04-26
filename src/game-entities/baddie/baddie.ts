@@ -1,7 +1,7 @@
-import { StateMachine } from "../lib/state-machine/state-machine";
 import { IdlingState } from "./states/idling-state";
 import { BaddieStateKeys } from "./baddie-state-keys";
 import { WalkingState } from "./states/walking-state";
+import { StateMachine } from "../../lib/state-machine/state-machine";
 
 export class Baddie {
   state: StateMachine<Baddie>;

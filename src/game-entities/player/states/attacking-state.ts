@@ -1,9 +1,9 @@
 import { Decelerates } from "./components/decelerates";
 import { Player } from "../player";
 import { Accelerates } from "./components/accelerates";
-import { State } from "../../lib/state-machine/state";
-import { StateMachine } from "../../lib/state-machine/state-machine";
 import { PlayerStateKeys } from "../player-state-keys";
+import { State } from "../../../lib/state-machine/state";
+import { StateMachine } from "../../../lib/state-machine/state-machine";
 
 export class AttackingState extends State<Player> {
   public static key: string = PlayerStateKeys.ATTACKING;

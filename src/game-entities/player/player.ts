@@ -1,11 +1,11 @@
 import { PlayerAttributes } from "./player-attributes";
-import { StateMachine } from "../lib/state-machine/state-machine";
 import { IdleState } from "./states/idle-state";
 import { WalkingState } from "./states/walking-state";
 import { AttackingState } from "./states/attacking-state";
 import { JumpingState } from "./states/jumping-state";
 import { FallingState } from "./states/falling-state";
 import { PlayerStateKeys } from "./player-state-keys";
+import { StateMachine } from "../../lib/state-machine/state-machine";
 
 export class Player {
   public sprite; //: Phaser.GameObjects.Sprite;

@@ -1,6 +1,6 @@
 import { Player } from "../../player";
 import { PlayerAttributes } from "../../player-attributes";
-import { IStateComponent } from "../../../lib/state-machine/i-state-component";
+import { IStateComponent } from "../../../../lib/state-machine/i-state-component";
 
 export class Decelerates implements IStateComponent<Player> {
   private isDecelerating: boolean;

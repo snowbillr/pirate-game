@@ -1,5 +1,5 @@
-import { IStateComponent } from "../../../lib/state-machine/i-state-component";
 import { Baddie } from "../../baddie";
+import { IStateComponent } from "../../../../lib/state-machine/i-state-component";
 
 export class FacesMovingDirection implements IStateComponent<Baddie> {
   onEnter() {
