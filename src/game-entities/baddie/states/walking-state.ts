@@ -4,6 +4,7 @@ import { Paces } from "./components/paces";
 import { State } from "../../../lib/state-machine/state";
 import { StateMachine } from "../../../lib/state-machine/state-machine";
 import { FacesMovingDirection } from "../../states/components/faces-moving-direction";
+import { Accelerates } from "../../states/components/accelerates";
 
 export class WalkingState extends State<Baddie> {
   public static key: string = BaddieStateKeys.WALKING;
@@ -12,6 +13,7 @@ export class WalkingState extends State<Baddie> {
     super(stateMachine, [
       new Paces(),
       new FacesMovingDirection<Baddie>(),
+      new Accelerates<Baddie>(),
     ]);
   }
 
@@ -19,14 +21,7 @@ export class WalkingState extends State<Baddie> {
     parent.sprite.anims.play('zombie_walk');
   }
 
-  onUpdate(parent: Baddie) {
-    if (parent.controls.right.isDown) {
-      parent.sprite.body.velocity.x = 100;
-    }
-
-    if (parent.controls.left.isDown) {
-      parent.sprite.body.velocity.x = -100;
-    }
+  onUpdate() {
   }
 
   onLeave() {

@@ -1,6 +1,6 @@
-import { PlayerAttributes } from "../../player-attributes";
-import { IStateComponent } from "../../../../lib/state-machine/i-state-component";
-import { IGameEntity } from "../../../i-game-entity";
+import { PlayerAttributes } from "../../player/player-attributes";
+import { IStateComponent } from "../../../lib/state-machine/i-state-component";
+import { IGameEntity } from "../../i-game-entity";
 
 export class Decelerates<T extends IGameEntity> implements IStateComponent<T> {
   private isDecelerating: boolean;

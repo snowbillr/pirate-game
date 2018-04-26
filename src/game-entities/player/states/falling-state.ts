@@ -1,6 +1,6 @@
 import { Player } from '../player';
-import { Accelerates } from './components/accelerates';
-import { Decelerates } from './components/decelerates';
+import { Accelerates } from '../../states/components/accelerates';
+import { Decelerates } from '../../states/components/decelerates';
 import { PlayerAttributes } from '../player-attributes';
 import { PlayerStateKeys } from '../player-state-keys';
 import { State } from '../../../lib/state-machine/state';
