@@ -12,7 +12,7 @@ export class AttackingState extends State<Player> {
   isAttacking: boolean;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super( stateMachine, [Accelerates, Decelerates]);
+    super(stateMachine, [Accelerates, Decelerates]);
 
     this.isAttacking = false;
   }
@@ -44,7 +44,7 @@ export class AttackingState extends State<Player> {
       }
     }
 
-    if (!this.isAttacking) {
+    if (!this.isAttacking) { // done with attack animation
       if (player.sprite.body.velocity.y >= 0) {
         return this.stateMachine.transition(PlayerStateKeys.FALLING);
       } else if (player.sprite.body.velocity.y < 0) {

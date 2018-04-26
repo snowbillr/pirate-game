@@ -17,6 +17,8 @@ export class TestScene extends Phaser.Scene {
     this.load.spritesheet('player_attack', 'assets/spritesheets/player/attack.png', { frameWidth: 64, frameHeight: 64 });
 
     this.load.image('zombie_stand', 'assets/spritesheets/zombie/stand.png');
+    this.load.image('zombie_walk1', 'assets/spritesheets/zombie/walk1.png');
+    this.load.image('zombie_walk2', 'assets/spritesheets/zombie/walk2.png');
 
     // tilemap stuff
     this.load.image('kenney-platformer-redux-ground', 'assets/tilesets/kenney-platformer-redux-ground.png');
@@ -42,6 +44,12 @@ export class TestScene extends Phaser.Scene {
       frameRate: 9,
       repeat: 0,
     });
+    this.anims.create({
+      key: 'zombie_walk',
+      frames: [{ key: 'zombie_walk1' }, { key: 'zombie_walk2' }],
+      frameRate: 4,
+      repeat: -1,
+    })
 
     this.tilemap = this.add.tilemap('test-map', 128, 128);
     const tileset = this.tilemap.addTilesetImage('test-tileset', 'kenney-platformer-redux-ground')
@@ -64,6 +72,7 @@ export class TestScene extends Phaser.Scene {
 
   update() {
     this.player.update();
+    this.baddie.update();
 
     this.physics.add.collider(this.player.sprite, this.layer);
     this.physics.add.collider(this.baddie.sprite, this.layer);

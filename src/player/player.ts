@@ -16,8 +16,7 @@ export class Player {
   private hitBoxes: any;
 
   create(scene) {
-    this.sprite = new Phaser.Physics.Arcade.Sprite(scene, 200, 200, 'player_idle', 0);
-    scene.physics.add.existing(this.sprite);
+    this.sprite = scene.physics.add.sprite(200, 200, 'player_idle', 0);
     this.sprite.body.maxVelocity.x = PlayerAttributes.maxHorizontalVelocity;
     this.sprite.setScale(2);
 
