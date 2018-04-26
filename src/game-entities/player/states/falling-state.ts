@@ -11,7 +11,11 @@ export class FallingState extends State<Player> {
   public static key: string = PlayerStateKeys.FALLING;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super( stateMachine, [FacesMovingDirection, Accelerates, Decelerates]);
+    super(stateMachine, [
+      new FacesMovingDirection<Player>(),
+      new Accelerates<Player>(),
+      new Decelerates<Player>(),
+    ]);
   }
 
   onEnter() {}

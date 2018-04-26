@@ -9,7 +9,10 @@ export class WalkingState extends State<Baddie> {
   public static key: string = BaddieStateKeys.WALKING;
 
   constructor(stateMachine: StateMachine<Baddie>) {
-    super(stateMachine, [Paces, FacesMovingDirection]);
+    super(stateMachine, [
+      new Paces(),
+      new FacesMovingDirection<Baddie>(),
+    ]);
   }
 
   onEnter(parent: Baddie) {

@@ -10,7 +10,11 @@ export class WalkingState extends State<Player> {
   public static key: string = PlayerStateKeys.WALKING;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super(stateMachine, [FacesMovingDirection, Accelerates, Decelerates])
+    super(stateMachine, [
+      new FacesMovingDirection<Player>(),
+      new Accelerates<Player>(),
+      new Decelerates<Player>(),
+    ]);
   }
 
   onEnter(player: Player) {

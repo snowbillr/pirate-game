@@ -8,7 +8,9 @@ export class IdleState extends State<Player> {
   public static key: string = PlayerStateKeys.IDLING;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super(stateMachine, [Decelerates])
+    super(stateMachine, [
+      new Decelerates<Player>(),
+    ]);
   }
 
   onEnter(player: Player) {

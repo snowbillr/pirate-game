@@ -1,24 +1,24 @@
-import { Player } from "../../player";
 import { PlayerAttributes } from "../../player-attributes";
 import { IStateComponent } from "../../../../lib/state-machine/i-state-component";
+import { IGameEntity } from "../../../i-game-entity";
 
-export class Decelerates implements IStateComponent<Player> {
+export class Decelerates<T extends IGameEntity> implements IStateComponent<T> {
   private isDecelerating: boolean;
 
-  onEnter(player: Player) {
-    this.isDecelerating = !player.controls.left.isDown && !player.controls.right.isDown;
+  onEnter(parent: T) {
+    this.isDecelerating = !parent.controls.left.isDown && !parent.controls.right.isDown;
   }
 
-  onUpdate(player: Player) {
-    if (!this.isDecelerating && !player.controls.left.isDown && !player.controls.right.isDown) {
+  onUpdate(parent: T) {
+    if (!this.isDecelerating && !parent.controls.left.isDown && !parent.controls.right.isDown) {
       this.isDecelerating = true;
-      player.sprite.body.acceleration.x = player.sprite.body.acceleration.x * -1;
+      parent.sprite.body.acceleration.x = parent.sprite.body.acceleration.x * -1;
     }
 
     if (this.isDecelerating) {
-      if (Phaser.Math.Within(player.sprite.body.velocity.x, 0, PlayerAttributes.horizontalSlowdownThreshold)) {
-        player.sprite.body.acceleration.x = 0;
-        player.sprite.body.velocity.x = 0;
+      if (Phaser.Math.Within(parent.sprite.body.velocity.x, 0, PlayerAttributes.horizontalSlowdownThreshold)) {
+        parent.sprite.body.acceleration.x = 0;
+        parent.sprite.body.velocity.x = 0;
         this.isDecelerating = false;
       }
     }

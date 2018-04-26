@@ -3,12 +3,12 @@ import { StateMachine } from "./state-machine";
 
 export abstract class State<T> {
   public static key: string;
+  protected stateMachine: StateMachine<T>;
   private components: IStateComponent<T>[];
 
-  constructor(protected stateMachine: StateMachine<T>, componentClasses: any[]) {
-    this.components = componentClasses.map(componentClass => {
-      return new componentClass();
-    });
+  constructor(stateMachine: StateMachine<T>, components: IStateComponent<T>[]) {
+    this.stateMachine = stateMachine;
+    this.components = components;
   }
 
   lifecycleOnEnter(parent: T) {
