@@ -1,5 +1,5 @@
-import { Player } from "../player/player";
 import { Baddie } from "../game-entities/baddie/baddie";
+import { Player } from "../game-entities/player/player";
 
 export class TestScene extends Phaser.Scene {
   private player: Player;
