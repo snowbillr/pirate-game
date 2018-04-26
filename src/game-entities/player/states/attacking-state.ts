@@ -4,6 +4,7 @@ import { Accelerates } from "./components/accelerates";
 import { PlayerStateKeys } from "../player-state-keys";
 import { State } from "../../../lib/state-machine/state";
 import { StateMachine } from "../../../lib/state-machine/state-machine";
+import { FacesMovingDirection } from "../../states/components/faces-moving-direction";
 
 export class AttackingState extends State<Player> {
   public static key: string = PlayerStateKeys.ATTACKING;
@@ -12,13 +13,13 @@ export class AttackingState extends State<Player> {
   isAttacking: boolean;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super(stateMachine, [Accelerates, Decelerates]);
+    super(stateMachine, [FacesMovingDirection, Accelerates, Decelerates]);
 
     this.isAttacking = false;
   }
 
   onEnter(player: Player) {
-    if (player.sprite.flipX) {
+    if (player.controls.flipX) {
       this.direction = Phaser.LEFT;
     } else {
       this.direction = Phaser.RIGHT;

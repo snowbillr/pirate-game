@@ -6,8 +6,9 @@ import { JumpingState } from "./states/jumping-state";
 import { FallingState } from "./states/falling-state";
 import { PlayerStateKeys } from "./player-state-keys";
 import { StateMachine } from "../../lib/state-machine/state-machine";
+import { IGameEntity } from "../i-game-entity";
 
-export class Player {
+export class Player implements IGameEntity {
   public sprite; //: Phaser.GameObjects.Sprite;
   public controls; //: { [string]: Phaser.Input.Keyboard.Key }
 

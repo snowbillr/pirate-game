@@ -9,7 +9,6 @@ export class Accelerates implements IStateComponent<Player> {
 
   onUpdate(player: Player) {
     if (player.controls.left.isDown) {
-      player.sprite.flipX = true;
       player.sprite.body.acceleration.x = -PlayerAttributes.horizontalAcceleration;
 
       if (player.sprite.body.velocity.x > PlayerAttributes.horizontalTurnaroundBoostThreshold) {
@@ -18,7 +17,6 @@ export class Accelerates implements IStateComponent<Player> {
     }
 
     if (player.controls.right.isDown) {
-      player.sprite.flipX = false;
       player.sprite.body.acceleration.x = PlayerAttributes.horizontalAcceleration;
 
       if (player.sprite.body.velocity.x < -PlayerAttributes.horizontalTurnaroundBoostThreshold) {

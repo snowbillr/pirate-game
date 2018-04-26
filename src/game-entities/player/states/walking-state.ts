@@ -4,12 +4,13 @@ import { Decelerates } from './components/decelerates';
 import { PlayerStateKeys } from '../player-state-keys';
 import { StateMachine } from '../../../lib/state-machine/state-machine';
 import { State } from '../../../lib/state-machine/state';
+import { FacesMovingDirection } from '../../states/components/faces-moving-direction';
 
 export class WalkingState extends State<Player> {
   public static key: string = PlayerStateKeys.WALKING;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super(stateMachine, [Accelerates, Decelerates])
+    super(stateMachine, [FacesMovingDirection, Accelerates, Decelerates])
   }
 
   onEnter(player: Player) {

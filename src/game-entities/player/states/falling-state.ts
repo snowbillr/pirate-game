@@ -5,12 +5,13 @@ import { PlayerAttributes } from '../player-attributes';
 import { PlayerStateKeys } from '../player-state-keys';
 import { State } from '../../../lib/state-machine/state';
 import { StateMachine } from '../../../lib/state-machine/state-machine';
+import { FacesMovingDirection } from '../../states/components/faces-moving-direction';
 
 export class FallingState extends State<Player> {
   public static key: string = PlayerStateKeys.FALLING;
 
   constructor(stateMachine: StateMachine<Player>) {
-    super( stateMachine, [Accelerates, Decelerates]);
+    super( stateMachine, [FacesMovingDirection, Accelerates, Decelerates]);
   }
 
   onEnter() {}
