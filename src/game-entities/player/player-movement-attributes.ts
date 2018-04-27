@@ -1,4 +1,6 @@
-export const PlayerAttributes = {
+import { IGameEntityMovementAttributes } from "../i-game-entity-attributes";
+
+export const PlayerMovementAttributes: IGameEntityMovementAttributes = {
   maxHorizontalVelocity: 350,
   horizontalAcceleration: 900,
 

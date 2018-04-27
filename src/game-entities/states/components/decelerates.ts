@@ -1,6 +1,6 @@
-import { PlayerAttributes } from "../../player/player-attributes";
 import { IStateComponent } from "../../../lib/state-machine/i-state-component";
 import { IGameEntity } from "../../i-game-entity";
+import { PlayerMovementAttributes } from "../../player/player-movement-attributes";
 
 export class Decelerates<T extends IGameEntity> implements IStateComponent<T> {
   private isDecelerating: boolean;
@@ -16,7 +16,7 @@ export class Decelerates<T extends IGameEntity> implements IStateComponent<T> {
     }
 
     if (this.isDecelerating) {
-      if (Phaser.Math.Within(parent.sprite.body.velocity.x, 0, PlayerAttributes.horizontalSlowdownThreshold)) {
+      if (Phaser.Math.Within(parent.sprite.body.velocity.x, 0, PlayerMovementAttributes.horizontalSlowdownThreshold)) {
         parent.sprite.body.acceleration.x = 0;
         parent.sprite.body.velocity.x = 0;
         this.isDecelerating = false;

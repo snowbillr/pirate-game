@@ -1,4 +1,3 @@
-import { PlayerAttributes } from "./player-attributes";
 import { IdleState } from "./states/idle-state";
 import { WalkingState } from "./states/walking-state";
 import { AttackingState } from "./states/attacking-state";
@@ -7,6 +6,7 @@ import { FallingState } from "./states/falling-state";
 import { PlayerStateKeys } from "./player-state-keys";
 import { StateMachine } from "../../lib/state-machine/state-machine";
 import { IGameEntity } from "../i-game-entity";
+import { PlayerMovementAttributes } from "./player-movement-attributes";
 
 export class Player implements IGameEntity {
   public sprite; //: Phaser.GameObjects.Sprite;
@@ -18,7 +18,7 @@ export class Player implements IGameEntity {
 
   create(scene) {
     this.sprite = scene.physics.add.sprite(200, 200, 'player_idle', 0);
-    this.sprite.body.maxVelocity.x = PlayerAttributes.maxHorizontalVelocity;
+    this.sprite.body.maxVelocity.x = PlayerMovementAttributes.maxHorizontalVelocity;
     this.sprite.setScale(2);
 
     this.controls = scene.input.keyboard.addKeys({

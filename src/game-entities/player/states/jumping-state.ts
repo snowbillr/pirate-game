@@ -1,11 +1,11 @@
 import { Player } from "../player";
-import { PlayerAttributes } from "../player-attributes";
 import { Accelerates } from "../../states/components/accelerates";
 import { Decelerates } from "../../states/components/decelerates";
 import { PlayerStateKeys } from "../player-state-keys";
 import { State } from "../../../lib/state-machine/state";
 import { StateMachine } from "../../../lib/state-machine/state-machine";
 import { FacesMovingDirection } from "../../states/components/faces-moving-direction";
+import { PlayerMovementAttributes } from "../player-movement-attributes";
 
 export class JumpingState extends State<Player> {
   public static key: string = PlayerStateKeys.JUMPING;
@@ -19,11 +19,11 @@ export class JumpingState extends State<Player> {
   }
 
   onEnter(player: Player) {
-    player.sprite.body.velocity.y = -PlayerAttributes.jumpVelocity;
+    player.sprite.body.velocity.y = -PlayerMovementAttributes.jumpVelocity;
   }
 
   onUpdate(player: Player) {
-    const jumpProgress = 1 - Math.abs(player.sprite.body.velocity.y / PlayerAttributes.jumpVelocity);
+    const jumpProgress = 1 - Math.abs(player.sprite.body.velocity.y / PlayerMovementAttributes.jumpVelocity);
     const totalJumpFrames = 4;
     const currentFrame = Phaser.Math.Clamp(Phaser.Math.RoundTo(totalJumpFrames * jumpProgress), 0, totalJumpFrames);
     player.sprite.setTexture('player_jump', currentFrame);
