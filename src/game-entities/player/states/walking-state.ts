@@ -5,6 +5,7 @@ import { PlayerStateKeys } from '../player-state-keys';
 import { StateMachine } from '../../../lib/state-machine/state-machine';
 import { State } from '../../../lib/state-machine/state';
 import { FacesMovingDirection } from '../../states/components/faces-moving-direction';
+import { PlayerMovementAttributes } from '../player-movement-attributes';
 
 export class WalkingState extends State<Player> {
   public static key: string = PlayerStateKeys.WALKING;
@@ -12,8 +13,8 @@ export class WalkingState extends State<Player> {
   constructor(stateMachine: StateMachine<Player>) {
     super(stateMachine, [
       new FacesMovingDirection<Player>(),
-      new Accelerates<Player>(),
-      new Decelerates<Player>(),
+      new Accelerates<Player>(PlayerMovementAttributes),
+      new Decelerates<Player>(PlayerMovementAttributes),
     ]);
   }
 

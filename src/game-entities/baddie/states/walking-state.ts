@@ -5,6 +5,7 @@ import { State } from "../../../lib/state-machine/state";
 import { StateMachine } from "../../../lib/state-machine/state-machine";
 import { FacesMovingDirection } from "../../states/components/faces-moving-direction";
 import { Accelerates } from "../../states/components/accelerates";
+import { BaddieMovementAttributes } from "../baddie-movement-attributes";
 
 export class WalkingState extends State<Baddie> {
   public static key: string = BaddieStateKeys.WALKING;
@@ -13,7 +14,7 @@ export class WalkingState extends State<Baddie> {
     super(stateMachine, [
       new Paces(),
       new FacesMovingDirection<Baddie>(),
-      new Accelerates<Baddie>(),
+      new Accelerates<Baddie>(BaddieMovementAttributes),
     ]);
   }
 

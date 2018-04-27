@@ -13,8 +13,8 @@ export class JumpingState extends State<Player> {
   constructor(stateMachine: StateMachine<Player>) {
     super(stateMachine, [
       new FacesMovingDirection<Player>(),
-      new Accelerates<Player>(),
-      new Decelerates<Player>(),
+      new Accelerates<Player>(PlayerMovementAttributes),
+      new Decelerates<Player>(PlayerMovementAttributes),
     ]);
   }
 
