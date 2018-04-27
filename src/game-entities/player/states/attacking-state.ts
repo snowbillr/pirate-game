@@ -23,7 +23,7 @@ export class AttackingState extends State<Player> {
   }
 
   onEnter(player: Player) {
-    if (player.controls.flipX) {
+    if (player.sprite.flipX) {
       this.direction = Phaser.LEFT;
     } else {
       this.direction = Phaser.RIGHT;
