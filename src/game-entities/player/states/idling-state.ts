@@ -6,7 +6,7 @@ import { State } from '../../../lib/state-machine/state';
 import { PlayerMovementAttributes } from '../player-movement-attributes';
 import { FacesMovingDirection } from '../../states/components/faces-moving-direction';
 
-export class IdleState extends State<Player> {
+export class IdlingState extends State<Player> {
   public static key: string = PlayerStateKeys.IDLING;
 
   constructor(stateMachine: StateMachine<Player>) {

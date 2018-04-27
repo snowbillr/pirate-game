@@ -1,4 +1,3 @@
-import { IdleState } from "./states/idle-state";
 import { WalkingState } from "./states/walking-state";
 import { AttackingState } from "./states/attacking-state";
 import { JumpingState } from "./states/jumping-state";
@@ -7,6 +6,7 @@ import { PlayerStateKeys } from "./player-state-keys";
 import { StateMachine } from "../../lib/state-machine/state-machine";
 import { IGameEntity } from "../i-game-entity";
 import { PlayerMovementAttributes } from "./player-movement-attributes";
+import { IdlingState } from "./states/idling-state";
 
 export class Player implements IGameEntity {
   public sprite; //: Phaser.GameObjects.Sprite;
@@ -29,7 +29,7 @@ export class Player implements IGameEntity {
     });
 
     this.state = new StateMachine<Player>(this, [
-      IdleState,
+      IdlingState,
       WalkingState,
       AttackingState,
       JumpingState,
