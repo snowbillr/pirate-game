@@ -5,7 +5,7 @@ export class FacesMovingDirection<T extends IGameEntity> implements IStateCompon
   onEnter() {}
 
   onUpdate(parent: T) {
-    if (parent.sprite.body.velocity.x >= 0) {
+    if (parent.sprite.body.velocity.x > 0) {
       parent.sprite.flipX = false;
     } else if (parent.sprite.body.velocity.x < 0) {
       parent.sprite.flipX = true;
