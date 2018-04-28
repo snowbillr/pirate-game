@@ -28,8 +28,4 @@ export class Decelerates<T extends IGameEntity> implements IStateComponent<T> {
       }
     }
   }
-
-  onLeave() {
-
-  }
 }

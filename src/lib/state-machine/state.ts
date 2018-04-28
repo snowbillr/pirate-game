@@ -11,16 +11,18 @@ export abstract class State<T> implements IState {
     this.components = components;
   }
 
-  lifecycle(name, transitionFn) {
-    this.callComponentLifecycleMethod(name);
+  lifecycle(name: string, transitionFn) {
+    this.componentLifecycle(name);
     if (this[name]) {
       this[name].call(this, transitionFn);
     }
   }
 
-  private callComponentLifecycleMethod(lifecycle: string) {
+  private componentLifecycle(name: string) {
     for (let i = 0; i < this.components.length; i++) {
-      this.components[i][lifecycle](this.parent);
+      if (this.components[i][name]) {
+        this.components[i][name](this.parent);
+      }
     }
   }
 }

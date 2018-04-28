@@ -9,10 +9,6 @@ export class Accelerates<T extends IGameEntity> implements IStateComponent<T> {
     this.movementAttributes = movementAttributes;
   }
 
-  onEnter() {
-
-  }
-
   onUpdate(parent: T) {
     if (parent.controls.left.isDown) {
       parent.sprite.body.acceleration.x = -this.movementAttributes.horizontalAcceleration;
@@ -29,9 +25,5 @@ export class Accelerates<T extends IGameEntity> implements IStateComponent<T> {
         parent.sprite.body.velocity.x += this.movementAttributes.horizontalTurnaroundBoost;
       }
     }
-  }
-
-  onLeave() {
-
   }
 }
