@@ -1,32 +1,21 @@
 import { IStateComponent } from "./i-state-component";
+import { IState } from "./i-state";
 
-export abstract class State<T> {
+export abstract class State<T> implements IState {
   public key: string;
   protected parent: T;
   private components: IStateComponent<T>[];
-
-  onEnter(transition?: (toKey: string) => void): void { transition; }
-  onUpdate(transition?: (toKey: string) => void): void { transition; }
-  onLeave(transition?: (toKey: string) => void): void { transition; }
 
   constructor(parent: T, components: IStateComponent<T>[]) {
     this.parent = parent;
     this.components = components;
   }
 
-  lifecycleOnEnter(transition) {
-    this.callComponentLifecycleMethod('onEnter');
-    this.onEnter(transition);
-  }
-
-  lifecycleOnUpdate(transition) {
-    this.callComponentLifecycleMethod('onUpdate');
-    this.onUpdate(transition);
-  }
-
-  lifecycleOnLeave(transition) {
-    this.callComponentLifecycleMethod('onLeave');
-    this.onLeave(transition);
+  lifecycle(name, transitionFn) {
+    this.callComponentLifecycleMethod(name);
+    if (this[name]) {
+      this[name].call(this, transitionFn);
+    }
   }
 
   private callComponentLifecycleMethod(lifecycle: string) {
