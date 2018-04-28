@@ -5,19 +5,21 @@ export class StateMachine<T> {
   private currentState: State<T>;
   private states: {};
 
-  constructor(private parent: T, stateClasses: any[], initialStateKey: string) {
-    this.states = stateClasses.reduce((states, stateClass) => {
-      states[stateClass.key] = new stateClass(this);
-      return states;
-    }, {})
+  constructor(states: State<T>[], initialStateKey: string) {
+    this.states = states.reduce((statesMap, state) => {
+      statesMap[state.key] = state;
+      return statesMap;
+    }, {});
+
+    this.transition = this.transition.bind(this);
 
     this.currentStateKey = initialStateKey;
     this.currentState = this.states[initialStateKey];
-    this.currentState.lifecycleOnEnter(this.parent);
+    this.currentState.lifecycleOnEnter(this.transition);
   }
 
   update() {
-    this.currentState.lifecycleOnUpdate(this.parent);
+    this.currentState.lifecycleOnUpdate(this.transition);
   }
 
   transition(toKey: string) {
@@ -25,12 +27,12 @@ export class StateMachine<T> {
       return;
     }
 
-    this.currentState.lifecycleOnLeave(this.parent);
+    this.currentState.lifecycleOnLeave(this.transition);
 
     this.currentState = this.states[toKey];
     this.currentStateKey = toKey;
 
-    this.currentState.lifecycleOnEnter(this.parent);
+    this.currentState.lifecycleOnEnter(this.transition);
   }
 
   getCurrentStateKey() {

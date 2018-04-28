@@ -1,38 +1,37 @@
 import { IStateComponent } from "./i-state-component";
-import { StateMachine } from "./state-machine";
 
 export abstract class State<T> {
-  public static key: string;
-  protected stateMachine: StateMachine<T>;
+  public key: string;
+  protected parent: T;
   private components: IStateComponent<T>[];
 
-  constructor(stateMachine: StateMachine<T>, components: IStateComponent<T>[]) {
-    this.stateMachine = stateMachine;
+  onEnter(transition?: (toKey: string) => void): void { transition; }
+  onUpdate(transition?: (toKey: string) => void): void { transition; }
+  onLeave(transition?: (toKey: string) => void): void { transition; }
+
+  constructor(parent: T, components: IStateComponent<T>[]) {
+    this.parent = parent;
     this.components = components;
   }
 
-  lifecycleOnEnter(parent: T) {
-    this.callComponentLifecycleMethod('onEnter', parent);
-    this.onEnter(parent);
+  lifecycleOnEnter(transition) {
+    this.callComponentLifecycleMethod('onEnter');
+    this.onEnter(transition);
   }
 
-  lifecycleOnUpdate(parent: T) {
-    this.callComponentLifecycleMethod('onUpdate', parent);
-    this.onUpdate(parent);
+  lifecycleOnUpdate(transition) {
+    this.callComponentLifecycleMethod('onUpdate');
+    this.onUpdate(transition);
   }
 
-  lifecycleOnLeave(parent: T) {
-    this.callComponentLifecycleMethod('onLeave', parent);
-    this.onLeave(parent);
+  lifecycleOnLeave(transition) {
+    this.callComponentLifecycleMethod('onLeave');
+    this.onLeave(transition);
   }
 
-  abstract onEnter(parent: T);
-  abstract onUpdate(parent: T);
-  abstract onLeave(parent: T);
-
-  private callComponentLifecycleMethod(lifecycle: string, parent: T) {
+  private callComponentLifecycleMethod(lifecycle: string) {
     for (let i = 0; i < this.components.length; i++) {
-      this.components[i][lifecycle](parent);
+      this.components[i][lifecycle](this.parent);
     }
   }
 }

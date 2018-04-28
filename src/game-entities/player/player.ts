@@ -2,11 +2,11 @@ import { WalkingState } from "./states/walking-state";
 import { AttackingState } from "./states/attacking-state";
 import { JumpingState } from "./states/jumping-state";
 import { FallingState } from "./states/falling-state";
+import { IdlingState } from "./states/idling-state";
 import { PlayerStateKeys } from "./player-state-keys";
 import { StateMachine } from "../../lib/state-machine/state-machine";
 import { IGameEntity } from "../i-game-entity";
 import { PlayerMovementAttributes } from "./player-movement-attributes";
-import { IdlingState } from "./states/idling-state";
 
 export class Player implements IGameEntity {
   public sprite; //: Phaser.GameObjects.Sprite;
@@ -28,12 +28,12 @@ export class Player implements IGameEntity {
       attack: Phaser.Input.Keyboard.KeyCodes.SPACE,
     });
 
-    this.state = new StateMachine<Player>(this, [
-      IdlingState,
-      WalkingState,
-      AttackingState,
-      JumpingState,
-      FallingState,
+    this.state = new StateMachine<Player>([
+      new IdlingState(this),
+      new WalkingState(this),
+      new AttackingState(this),
+      new JumpingState(this),
+      new FallingState(this),
     ], PlayerStateKeys.IDLING);
 
     this.hitBoxes = {

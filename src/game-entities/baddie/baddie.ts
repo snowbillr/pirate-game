@@ -15,9 +15,9 @@ export class Baddie implements IGameEntity {
     scene.physics.add.existing(this.sprite);
     this.sprite.body.maxVelocity.x = BaddieMovementAttributes.maxHorizontalVelocity;
 
-    this.state = new StateMachine<Baddie>(this, [
-      IdlingState,
-      WalkingState,
+    this.state = new StateMachine<Baddie>([
+      new IdlingState(this),
+      new WalkingState(this),
     ], BaddieStateKeys.WALKING);
 
     this.controls = {

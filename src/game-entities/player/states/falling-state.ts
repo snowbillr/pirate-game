@@ -3,41 +3,36 @@ import { Accelerates } from '../../states/components/accelerates';
 import { Decelerates } from '../../states/components/decelerates';
 import { PlayerStateKeys } from '../player-state-keys';
 import { State } from '../../../lib/state-machine/state';
-import { StateMachine } from '../../../lib/state-machine/state-machine';
 import { FacesMovingDirection } from '../../states/components/faces-moving-direction';
 import { PlayerMovementAttributes } from '../player-movement-attributes';
 
 export class FallingState extends State<Player> {
-  public static key: string = PlayerStateKeys.FALLING;
+  public key: string = PlayerStateKeys.FALLING;
 
-  constructor(stateMachine: StateMachine<Player>) {
-    super(stateMachine, [
+  constructor(parent: Player) {
+    super(parent, [
       new FacesMovingDirection<Player>(),
       new Accelerates<Player>(PlayerMovementAttributes),
       new Decelerates<Player>(PlayerMovementAttributes),
     ]);
   }
 
-  onEnter() {}
-
-  onUpdate(player: Player) {
-    const jumpProgress = Math.abs(player.sprite.body.velocity.y / PlayerMovementAttributes.jumpVelocity);
+  onUpdate(transition) {
+    const jumpProgress = Math.abs(this.parent.sprite.body.velocity.y / PlayerMovementAttributes.jumpVelocity);
     const totalJumpFrames = 4;
     const currentFrame = Phaser.Math.Clamp(totalJumpFrames - Phaser.Math.RoundTo(totalJumpFrames * jumpProgress), 0, totalJumpFrames);
-    player.sprite.setTexture('player_jump', currentFrame);
+    this.parent.sprite.setTexture('player_jump', currentFrame);
 
-    if (player.controls.attack.isDown) {
-      return this.stateMachine.transition(PlayerStateKeys.ATTACKING);
+    if (this.parent.controls.attack.isDown) {
+      return transition(PlayerStateKeys.ATTACKING);
     }
 
-    if (player.sprite.body.blocked.down) {
-      if (player.sprite.body.velocity.x !== 0) {
-        return this.stateMachine.transition(PlayerStateKeys.WALKING);
+    if (this.parent.sprite.body.blocked.down) {
+      if (this.parent.sprite.body.velocity.x !== 0) {
+        return transition(PlayerStateKeys.WALKING);
       } else {
-        return this.stateMachine.transition(PlayerStateKeys.IDLING);
+        return transition(PlayerStateKeys.IDLING);
       }
     }
   }
-
-  onLeave() {}
 }
