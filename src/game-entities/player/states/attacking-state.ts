@@ -30,7 +30,8 @@ export class AttackingState extends State<Player> {
     }
 
     this.isAttacking = true;
-    this.setAttackAnimationCallback(() => this.isAttacking = false);
+    this.parent.sprite.on('animationcomplete', this.resetAttacking, this);
+
     this.parent.sprite.play('player_attack')
   }
 
@@ -65,11 +66,10 @@ export class AttackingState extends State<Player> {
   }
 
   onLeave() {
-    this.setAttackAnimationCallback(Phaser.NOOP);
-    this.isAttacking = false;
+    this.parent.sprite.off('animationcomplete', this.resetAttacking, this);
   }
 
-  private setAttackAnimationCallback(callback: () => void) {
-    this.parent.sprite.scene.anims.get('player_attack').onComplete = callback;
+  private resetAttacking() {
+    this.isAttacking = false;
   }
 }

@@ -22,19 +22,23 @@ export class IdlingState extends State<Player> {
 
   onUpdate(transition) {
     if (this.parent.controls.left.isDown || this.parent.controls.right.isDown) {
-      transition(PlayerStateKeys.WALKING);
+      return transition(PlayerStateKeys.WALKING);
     }
 
     if (this.parent.controls.jump.isDown) {
-      transition(PlayerStateKeys.JUMPING);
+      return transition(PlayerStateKeys.JUMPING);
     }
 
     if (this.parent.controls.attack.isDown) {
-      transition(PlayerStateKeys.ATTACKING);
+      return transition(PlayerStateKeys.ATTACKING);
     }
 
     if (!this.parent.sprite.body.blocked.down) {
-      transition(PlayerStateKeys.FALLING);
+      return transition(PlayerStateKeys.FALLING);
     }
+  }
+
+  onLeave() {
+    this.parent.sprite.anims.stop();
   }
 }

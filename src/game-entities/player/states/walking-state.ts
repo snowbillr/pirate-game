@@ -27,7 +27,7 @@ export class WalkingState extends State<Player> {
     }
 
     if (this.parent.controls.attack.isDown) {
-      transition(PlayerStateKeys.ATTACKING);
+      return transition(PlayerStateKeys.ATTACKING);
     }
 
     if (!this.parent.sprite.body.blocked.down) {
