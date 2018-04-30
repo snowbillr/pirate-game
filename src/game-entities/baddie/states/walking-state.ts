@@ -20,4 +20,8 @@ export class WalkingState extends State<Baddie> {
   onEnter() {
     this.parent.sprite.anims.play('zombie_walk');
   }
+
+  onLeave() {
+    this.parent.sprite.anims.stop();
+  }
 }

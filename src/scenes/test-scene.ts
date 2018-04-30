@@ -1,5 +1,6 @@
 import { Baddie } from "../game-entities/baddie/baddie";
 import { Player } from "../game-entities/player/player";
+import { BaddieStateKeys } from "../game-entities/baddie/baddie-state-keys";
 
 export class TestScene extends Phaser.Scene {
   private player: Player;
@@ -23,6 +24,7 @@ export class TestScene extends Phaser.Scene {
     this.load.image('zombie_stand', 'assets/spritesheets/zombie/stand.png');
     this.load.image('zombie_walk1', 'assets/spritesheets/zombie/walk1.png');
     this.load.image('zombie_walk2', 'assets/spritesheets/zombie/walk2.png');
+    this.load.image('zombie_hurt', 'assets/spritesheets/zombie/hurt.png');
 
     // tilemap stuff
     this.load.image('kenney-platformer-redux-ground', 'assets/tilesets/kenney-platformer-redux-ground.png');
@@ -80,7 +82,6 @@ export class TestScene extends Phaser.Scene {
     this.player.update();
     this.baddie.update();
 
-
     this.hitboxDebug.clear();
 
     const activeHitBoxes = this.player.getActiveHitBox();
@@ -92,9 +93,8 @@ export class TestScene extends Phaser.Scene {
         this.hitboxDebug.fillStyle(0x9966ff, 0.5);
         this.hitboxDebug.fillCircleShape(adjustedHitBox);
 
-
         if (Phaser.Geom.Intersects.CircleToRectangle(adjustedHitBox, this.baddie.sprite.getBounds())) {
-          this.baddie.sprite.tint = 0xFF0000;
+          this.baddie.state.transition(BaddieStateKeys.RECOILING, Phaser.LEFT);
         }
       }
     }

@@ -4,6 +4,7 @@ import { WalkingState } from "./states/walking-state";
 import { StateMachine } from "../../lib/state-machine/state-machine";
 import { IGameEntity } from "../i-game-entity";
 import { BaddieMovementAttributes } from "./baddie-movement-attributes";
+import { RecoilingState } from "./states/recoiling-state";
 
 export class Baddie implements IGameEntity {
   state: StateMachine<Baddie>;
@@ -18,6 +19,7 @@ export class Baddie implements IGameEntity {
     this.state = new StateMachine<Baddie>([
       new IdlingState(this),
       new WalkingState(this),
+      new RecoilingState(this),
     ], BaddieStateKeys.WALKING);
 
     this.controls = {

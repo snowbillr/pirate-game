@@ -11,10 +11,10 @@ export abstract class State<T> implements IState {
     this.components = components;
   }
 
-  lifecycle(name: string, transitionFn) {
+  lifecycle(name: string, transitionFn, params?: any[]) {
     this.componentLifecycle(name);
     if (this[name]) {
-      this[name].call(this, transitionFn);
+      this[name].call(this, transitionFn, ...params);
     }
   }
 

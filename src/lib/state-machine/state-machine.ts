@@ -22,7 +22,7 @@ export class StateMachine<T> {
     this.currentState.lifecycle('onUpdate', this.transition);
   }
 
-  transition(toKey: string) {
+  transition(toKey: string, ...params: any[]) {
     if (toKey === this.currentStateKey) {
       return;
     }
@@ -32,7 +32,7 @@ export class StateMachine<T> {
     this.currentState = this.states[toKey];
     this.currentStateKey = toKey;
 
-    this.currentState.lifecycle('onEnter', this.transition);
+    this.currentState.lifecycle('onEnter', this.transition, params);
   }
 
   getCurrentStateKey() {
