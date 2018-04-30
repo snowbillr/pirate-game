@@ -94,7 +94,8 @@ export class TestScene extends Phaser.Scene {
         this.hitboxDebug.fillCircleShape(adjustedHitBox);
 
         if (Phaser.Geom.Intersects.CircleToRectangle(adjustedHitBox, this.baddie.sprite.getBounds())) {
-          this.baddie.state.transition(BaddieStateKeys.RECOILING, Phaser.LEFT);
+          const fromDirection = adjustedHitBox.left < this.baddie.sprite.body.left ? Phaser.LEFT : Phaser.RIGHT;
+          this.baddie.state.transition(BaddieStateKeys.RECOILING, fromDirection);
         }
       }
     }
