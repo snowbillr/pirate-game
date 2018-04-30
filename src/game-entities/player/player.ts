@@ -9,7 +9,7 @@ import { IGameEntity } from "../i-game-entity";
 import { PlayerMovementAttributes } from "./player-movement-attributes";
 
 export class Player implements IGameEntity {
-  public sprite; //: Phaser.GameObjects.Sprite;
+  public sprite : Phaser.GameObjects.Sprite;
   public controls; //: { [string]: Phaser.Input.Keyboard.Key }
 
   private state: StateMachine<Player>;

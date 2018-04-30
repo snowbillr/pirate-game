@@ -12,12 +12,4 @@ export class IdlingState extends State<Baddie> {
   onEnter() {
     this.parent.sprite.setTexture('zombie_stand');
   }
-
-  onUpdate() {
-
-  }
-
-  onLeave() {
-
-  }
 }

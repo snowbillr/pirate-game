@@ -7,7 +7,7 @@ import { BaddieMovementAttributes } from "./baddie-movement-attributes";
 
 export class Baddie implements IGameEntity {
   state: StateMachine<Baddie>;
-  sprite: any;
+  sprite: Phaser.GameObjects.Sprite;
   controls: any;
 
   create(scene) {

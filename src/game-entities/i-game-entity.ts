@@ -1,4 +1,4 @@
 export interface IGameEntity {
-  sprite: any;
+  sprite: Phaser.GameObjects.Sprite;
   controls: any;
 }

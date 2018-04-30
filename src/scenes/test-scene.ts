@@ -5,6 +5,10 @@ export class TestScene extends Phaser.Scene {
   private player: Player;
   private baddie: Baddie;
 
+  private hitboxDebug: Phaser.GameObjects.Graphics;
+  private layer: Phaser.Tilemaps.StaticTilemapLayer;
+  private tilemap: Phaser.Tilemaps.Tilemap;
+
   init() {
     this.player = new Player();
     this.baddie = new Baddie();
@@ -46,7 +50,7 @@ export class TestScene extends Phaser.Scene {
     });
     this.anims.create({
       key: 'zombie_walk',
-      frames: [{ key: 'zombie_walk1' }, { key: 'zombie_walk2' }],
+      frames: [{ key: 'zombie_walk1', frame: 0 }, { key: 'zombie_walk2', frame: 0 }],
       frameRate: 4,
       repeat: -1,
     })
@@ -63,6 +67,8 @@ export class TestScene extends Phaser.Scene {
     this.player.create(this);
     this.add.existing(this.player.sprite);
 
+    this.physics.add.collider(this.player.sprite, this.layer);
+    this.physics.add.collider(this.baddie.sprite, this.layer);
     this.hitboxDebug = this.add.graphics();
 
     this.cameras.main.setBounds(0, 0, this.layer.width, this.layer.height);
@@ -74,8 +80,6 @@ export class TestScene extends Phaser.Scene {
     this.player.update();
     this.baddie.update();
 
-    this.physics.add.collider(this.player.sprite, this.layer);
-    this.physics.add.collider(this.baddie.sprite, this.layer);
 
     this.hitboxDebug.clear();
 

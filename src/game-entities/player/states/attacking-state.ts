@@ -66,7 +66,7 @@ export class AttackingState extends State<Player> {
   }
 
   onLeave() {
-    this.parent.sprite.off('animationcomplete', this.resetAttacking, this);
+    this.parent.sprite.off('animationcomplete', this.resetAttacking, this, false);
   }
 
   private resetAttacking() {

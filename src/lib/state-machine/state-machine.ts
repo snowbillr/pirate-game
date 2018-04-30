@@ -23,6 +23,7 @@ export class StateMachine<T> {
   }
 
   transition(toKey: string) {
+    console.log(`transitioning to ${toKey}`);
     if (toKey === this.currentStateKey) {
       return;
     }
